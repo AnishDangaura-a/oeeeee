@@ -1,0 +1,1424 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurum Grand â€” Luxury Hotel & Resorts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+
+<!-- MOBILE BOTTOM BAR -->
+<div class="mob-bar" id="mobBar">
+  <div class="mob-bar-inner">
+    <div class="mob-bar-item" onclick="go('home')" id="mb-home">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+      <span>Home</span>
+    </div>
+    <div class="mob-bar-item" onclick="go('rooms')" id="mb-rooms">
+      <svg viewBox="0 0 24 24"><path d="M2 4v16h20V4H2zm0 8h20M10 4v8"/></svg>
+      <span>Rooms</span>
+    </div>
+    <div class="mob-bar-item mob-bar-book" onclick="openModal()">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      <span>Book</span>
+    </div>
+    <div class="mob-bar-item" onclick="go('dining')" id="mb-dining">
+      <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/></svg>
+      <span>Dining</span>
+    </div>
+    <div class="mob-bar-item" onclick="go('contact')" id="mb-contact">
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16"/></svg>
+      <span>Contact</span>
+    </div>
+  </div>
+</div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">Aurum</div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  <div class="loader-tag">Grand Hotel &amp; Resorts</div>
+</div>
+
+<!-- SCROLL PROGRESS -->
+<div id="scroll-progress"></div>
+
+<!-- PAGE TRANSITION -->
+<div class="page-trans" id="pageTrans"></div>
+
+<!-- BACK TO TOP -->
+<div id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">&#8593;</div>
+
+<!-- COOKIE BANNER -->
+<div id="cookie-banner">
+  <div class="cookie-text">We use cookies to enhance your experience and provide personalized service. By continuing, you agree to our <a onclick="notify('Privacy Policy','privacy@aurumgrand.com')">Privacy Policy</a>.</div>
+  <div class="cookie-btns">
+    <button class="cookie-accept" onclick="closeCookie()">Accept All</button>
+    <button class="cookie-decline" onclick="closeCookie()">Decline</button>
+  </div>
+</div>
+
+<!-- PROMO BAR -->
+<div class="promo-bar" id="promoBar">
+  <span>&#10022; Summer Escape &mdash; Save 30% on 7-Night Stays. Book by June 30.</span>
+  <a onclick="go('offers')">View Offer &rarr;</a>
+  <button class="promo-close" onclick="document.getElementById('promoBar').style.display='none'">&#10005;</button>
+</div>
+
+<!-- GALLERY LIGHTBOX -->
+<div id="lightbox">
+  <div class="lb-header">
+    <div class="lb-counter" id="lb-counter">1 of 9</div>
+    <div class="lb-controls">
+      <button class="lb-ctrl" onclick="closeLightbox()" title="Close">&#10005;</button>
+    </div>
+  </div>
+  <div class="lb-img">
+    <div class="lb-img-inner" id="lb-img-inner">
+      <div class="lb-img-bg" id="lb-img-bg"></div>
+      <div class="lb-img-pat"></div>
+    </div>
+  </div>
+  <div class="lb-nav">
+    <button class="lb-arrow" onclick="lbNav(-1)">&#8592;</button>
+    <div class="lb-caption" id="lb-caption">Interior â€” Garden View Suite</div>
+    <button class="lb-arrow" onclick="lbNav(1)">&#8594;</button>
+  </div>
+  <div class="lb-thumbs" id="lb-thumbs"></div>
+</div>
+
+<!-- ROOM DETAIL MODAL -->
+<div id="room-modal">
+  <div class="rm-inner">
+    <div class="rm-hero" id="rm-hero">
+      <div class="rm-hero-bg" id="rm-hero-bg"></div>
+      <div class="rm-hero-pat"></div>
+      <button class="rm-hero-close" onclick="closeRoomModal()">&#10005;</button>
+      <div class="rm-hero-num" id="rm-hero-num">01</div>
+    </div>
+    <div class="rm-body">
+      <div class="rm-details">
+        <span class="rm-tag" id="rm-tag">Deluxe Room</span>
+        <div class="rm-name-big" id="rm-name">Garden View Suite</div>
+        <p class="rm-desc-full" id="rm-desc">A serene retreat opening to manicured gardens. The interplay of natural light and handcrafted furnishings creates a space that feels both grand and intimately personal. Every surface has been selected by our design team with painstaking care.</p>
+        <div class="rm-specs-grid" id="rm-specs">
+          <div class="rm-spec"><div class="rm-spec-dot"></div><span>45 sq m</span></div>
+          <div class="rm-spec"><div class="rm-spec-dot"></div><span>King Bed</span></div>
+          <div class="rm-spec"><div class="rm-spec-dot"></div><span>Garden View</span></div>
+          <div class="rm-spec"><div class="rm-spec-dot"></div><span>Marble Bathroom</span></div>
+          <div class="rm-spec"><div class="rm-spec-dot"></div><span>Max 2 Guests</span></div>
+          <div class="rm-spec"><div class="rm-spec-dot"></div><span>Private Balcony</span></div>
+        </div>
+        <div class="rm-includes">
+          <h4>What&rsquo;s Included</h4>
+          <div class="rm-include-list">
+            <div class="rm-inc-item">Complimentary Wi-Fi</div>
+            <div class="rm-inc-item">Daily housekeeping</div>
+            <div class="rm-inc-item">Welcome amenity</div>
+            <div class="rm-inc-item">Mineral water daily</div>
+            <div class="rm-inc-item">In-room safe</div>
+            <div class="rm-inc-item">Nespresso machine</div>
+            <div class="rm-inc-item">Pillow menu</div>
+            <div class="rm-inc-item">Evening turndown</div>
+          </div>
+        </div>
+      </div>
+      <div class="rm-sidebar">
+        <div>
+          <div class="rm-price-label">Starting from</div>
+          <div class="rm-price-big" id="rm-price">$420</div>
+          <div class="rm-price-label">per night</div>
+        </div>
+        <div class="rm-sb-divider"></div>
+        <div class="rm-date-group">
+          <div class="rm-date-label">Check In</div>
+          <input type="date" class="rm-date-input" id="rm-ci" oninput="calcRoomTotal()">
+        </div>
+        <div class="rm-date-group">
+          <div class="rm-date-label">Check Out</div>
+          <input type="date" class="rm-date-input" id="rm-co" oninput="calcRoomTotal()">
+        </div>
+        <div class="rm-total-row">
+          <span class="rm-total-label">Estimated Total</span>
+          <span class="rm-total-price" id="rm-total">â€”</span>
+        </div>
+        <button class="bg" style="width:100%;justify-content:center" onclick="openModal();closeRoomModal()">Book This Room</button>
+        <button class="bo-d" style="width:100%;justify-content:center;border-color:rgba(201,168,76,.3);color:rgba(245,240,232,.6)" onclick="notify('Upgrade Request','Our team will contact you about upgrade options for this room.')">Request Upgrade</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- NAV -->
+<nav id="nav" class="t">
+  <div class="ni">
+    <div class="logo" onclick="go('home')">Aurum<small>Grand Hotel &amp; Resorts</small></div>
+    <div class="nl">
+      <a onclick="go('home')" id="nv-home" class="al">Home</a>
+      <a onclick="go('about')" id="nv-about">About</a>
+      <div class="mega-wrap"><a onclick="go('rooms')" id="nv-rooms">Rooms</a>
+<div class="mega-menu">
+  <div class="mega-grid">
+    <div class="mega-item" onclick="openRoomModal(0)">
+      <div class="mega-item-ico"><svg viewBox="0 0 24 24"><path d="M2 4v16h20V4H2z"/><path d="M2 12h20M10 4v8"/></svg></div>
+      <div><div class="mega-item-name">Garden View Suite</div><div class="mega-item-sub">Deluxe &mdash; from $420/night</div></div>
+    </div>
+    <div class="mega-item" onclick="openRoomModal(1)">
+      <div class="mega-item-ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg></div>
+      <div><div class="mega-item-name">Forest Canopy Suite</div><div class="mega-item-sub">Junior Suite &mdash; from $680/night</div></div>
+    </div>
+    <div class="mega-item" onclick="openRoomModal(2)">
+      <div class="mega-item-ico"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg></div>
+      <div><div class="mega-item-name">The Grand Suite</div><div class="mega-item-sub">Grand &mdash; from $1,200/night</div></div>
+    </div>
+    <div class="mega-item" onclick="openRoomModal(3)">
+      <div class="mega-item-ico"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/></svg></div>
+      <div><div class="mega-item-name">The Penthouse</div><div class="mega-item-sub">Presidential &mdash; from $2,400/night</div></div>
+    </div>
+    <div class="mega-divider"></div>
+    <div class="mega-footer">
+      <span style="font-size:.6rem;color:rgba(245,240,232,.4)">Prices per night, excl. taxes</span>
+      <button class="bg" style="font-size:.55rem;padding:.45rem 1rem" onclick="go('rooms')">View All &rarr;</button>
+    </div>
+  </div>
+</div></div>
+      <a onclick="go('amenities')" id="nv-amenities">Amenities</a>
+      <a onclick="go('dining')" id="nv-dining">Dining</a>
+      <a onclick="go('offers')" id="nv-offers">Offers</a>
+      <a onclick="go('gallery')" id="nv-gallery">Gallery</a>
+      <a onclick="go('weddings')" id="nv-weddings">Weddings</a>
+      <a onclick="go('contact')" id="nv-contact">Contact</a>
+      <a class="nb" onclick="openModal()">Book Now</a></div><div class="nav-extras"><select class="nav-select" onchange="notify('Currency','Currency changed to '+this.value)"><option>USD $</option><option>EUR â‚¬</option><option>GBP Â£</option><option>AED Ø¯.Ø¥</option><option>INR â‚¹</option></select><div class="nav-divider-v"></div><select class="nav-select" onchange="notify('Language','Language changed to '+this.value)"><option>EN</option><option>FR</option><option>DE</option><option>AR</option><option>ZH</option></select
+    </div>
+    <select class="nav-select" style="margin-left:.5rem" onchange="notify('Currency','Currency: '+this.value)"><option>USD $</option><option>EUR â‚¬</option><option>GBP Â£</option><option>AED Ø¯.Ø¥</option><option>INR â‚¹</option></select><div class="nav-divider-v" style="width:1px;height:14px;background:rgba(245,240,232,.15);margin:0 .5rem"></div><select class="nav-select" onchange="notify('Language','Language: '+this.value)"><option>EN</option><option>FR</option><option>DE</option><option>AR</option><option>ZH</option></select><div class="hbg" onclick="toggleMM()"><span></span><span></span><span></span></div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mm" id="mm">
+  <button class="mm-x" onclick="toggleMM()">&#10005;</button>
+  <a onclick="go('home');toggleMM()">Home</a>
+  <a onclick="go('about');toggleMM()">About</a>
+  <a onclick="go('rooms');toggleMM()">Rooms</a>
+  <a onclick="go('amenities');toggleMM()">Amenities</a>
+  <a onclick="go('dining');toggleMM()">Dining</a>
+  <a onclick="go('offers');toggleMM()">Offers</a>
+  <a onclick="go('gallery');toggleMM()">Gallery</a>
+  <a onclick="go('weddings');toggleMM()">Weddings</a>
+  <a onclick="go('loyalty');toggleMM()">Loyalty</a>
+  <a onclick="go('contact');toggleMM()">Contact</a>
+  <button class="bg" style="margin-top:1rem" onclick="openModal();toggleMM()">Reserve Your Stay</button>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"><div class="toast-t" id="toast-t"></div><div class="toast-m" id="toast-m"></div></div>
+
+<!-- CHAT -->
+<div class="chat-btn" id="chatBtn" onclick="toggleChat()">
+  <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <div class="chat-badge" id="chatBadge"></div>
+</div>
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-head">
+    <div class="logo" style="font-size:.82rem;cursor:default">Aurum<small style="display:block;font-size:.42rem;opacity:.65">Concierge &mdash; 24/7</small></div>
+    <div class="chat-online"></div>
+    <button class="chat-x" onclick="toggleChat()">&#10005;</button>
+  </div>
+  <div class="chat-body" id="chatBody">
+    <div class="cb bot">Welcome to Aurum Grand. I&#39;m your personal concierge. How may I assist you today?</div>
+  </div>
+  <div class="chat-chips" id="chatChips">
+    <div class="cc" onclick="chatR('Book a Room')">Book a Room</div>
+    <div class="cc" onclick="chatR('Dining Reservation')">Dining</div>
+    <div class="cc" onclick="chatR('Spa & Wellness')">Spa</div>
+    <div class="cc" onclick="chatR('Local Tips')">Local Tips</div>
+  </div>
+  <div class="chat-inp-row">
+    <input class="chat-inp" id="chatInp" placeholder="Type your message&hellip;" onkeydown="if(event.key==='Enter')sendChat()">
+    <button class="chat-send" onclick="sendChat()">Send</button>
+  </div>
+</div>
+
+<!-- BOOKING MODAL -->
+<div class="modal-ov" id="bookModal">
+  <div class="modal">
+    <div class="modal-hd"><h2>Reserve Your Stay</h2><button class="modal-x" onclick="closeModal()">&#10005;</button></div>
+    <div class="modal-bd" id="modalBd">
+      <div class="step-bar">
+        <div class="stp"><div class="stp-n active" id="sn1">1</div><span class="stp-l active">Dates &amp; Room</span></div>
+        <div class="stp-line"></div>
+        <div class="stp"><div class="stp-n" id="sn2">2</div><span class="stp-l">Add-ons</span></div>
+        <div class="stp-line"></div>
+        <div class="stp"><div class="stp-n" id="sn3">3</div><span class="stp-l">Your Details</span></div>
+        <div class="stp-line"></div>
+        <div class="stp"><div class="stp-n" id="sn4">4</div><span class="stp-l">Payment</span></div>
+      </div>
+      <div class="sp active" id="sp1">
+        <div class="sp-title">Select your stay</div>
+        <div class="fr2">
+          <div class="fg"><label>Check In</label><input type="date" id="ci" oninput="updSum()"></div>
+          <div class="fg"><label>Check Out</label><input type="date" id="co" oninput="updSum()"></div>
+        </div>
+        <div class="fr2">
+          <div class="fg"><label>Room Type</label>
+            <select id="rt" onchange="updSum()">
+              <option value="420">Deluxe Room &mdash; from $420/night</option>
+              <option value="680">Junior Suite &mdash; from $680/night</option>
+              <option value="1200">Grand Suite &mdash; from $1,200/night</option>
+              <option value="2400">Presidential Suite &mdash; from $2,400/night</option>
+            </select>
+          </div>
+          <div class="fg"><label>Guests</label>
+            <select><option>1 Guest</option><option selected>2 Guests</option><option>3 Guests</option><option>4+ Guests</option></select>
+          </div>
+        </div>
+        <div class="os"><div class="os-t">Stay Summary</div>
+          <div class="os-row"><span id="os-rm">Select dates to see pricing</span><span id="os-p"></span></div>
+          <div class="os-row"><span>Taxes &amp; fees (18%)</span><span id="os-tx"></span></div>
+          <div class="os-row tot"><span>Estimated Total</span><span class="os-gold" id="os-tot"></span></div>
+        </div>
+      </div>
+      <div class="sp" id="sp2">
+        <div class="sp-title">Enhance your stay</div>
+        <div class="addon-grid">
+          <div class="addon-card" onclick="togAddon(this,80)"><div class="addon-nm">Airport Transfer</div><div class="addon-pr">+$80</div><div class="addon-ds">Luxury vehicle, round trip</div></div>
+          <div class="addon-card" onclick="togAddon(this,65)"><div class="addon-nm">Breakfast Package</div><div class="addon-pr">+$65/day</div><div class="addon-ds">Full buffet for 2 guests</div></div>
+          <div class="addon-card" onclick="togAddon(this,200)"><div class="addon-nm">Spa Credit</div><div class="addon-pr">+$200</div><div class="addon-ds">Redeemable at Aurum Spa</div></div>
+          <div class="addon-card" onclick="togAddon(this,120)"><div class="addon-nm">Champagne Welcome</div><div class="addon-pr">+$120</div><div class="addon-ds">Dom P&eacute;rignon on arrival</div></div>
+          <div class="addon-card" onclick="togAddon(this,50)"><div class="addon-nm">Early Check-in</div><div class="addon-pr">+$50</div><div class="addon-ds">Available from 12 noon</div></div>
+          <div class="addon-card" onclick="togAddon(this,50)"><div class="addon-nm">Late Check-out</div><div class="addon-pr">+$50</div><div class="addon-ds">Extended until 4pm</div></div>
+        </div>
+      </div>
+      <div class="sp" id="sp3">
+        <div class="sp-title">Guest details</div>
+        <div class="fr2">
+          <div class="fg"><label>First Name</label><input type="text" placeholder="Alexandra"></div>
+          <div class="fg"><label>Last Name</label><input type="text" placeholder="Williams"></div>
+        </div>
+        <div class="fg"><label>Email</label><input type="email" placeholder="you@email.com"></div>
+        <div class="fg"><label>Phone</label><input type="tel" placeholder="+1 555 000 0000"></div>
+        <div class="fg"><label>Loyalty Number (optional)</label><input type="text" placeholder="AG-000000"></div>
+        <div class="fg"><label>Special Requests</label><textarea placeholder="Dietary requirements, celebrations, accessibility needs&hellip;"></textarea></div>
+      </div>
+      <div class="sp" id="sp4">
+        <div class="sp-title">Secure Payment</div>
+        <div class="os"><div class="os-t">Final Summary</div>
+          <div class="os-row"><span id="fp-rm">Room</span><span id="fp-p"></span></div>
+          <div class="os-row"><span>Add-ons selected</span><span id="fp-ao">$0</span></div>
+          <div class="os-row"><span>Taxes &amp; fees</span><span id="fp-tx"></span></div>
+          <div class="os-row tot"><span>Total Due</span><span class="os-gold" id="fp-tot"></span></div>
+        </div>
+        <div class="fg"><label>Card Number</label><input type="text" placeholder="&bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull; &bull;&bull;&bull;&bull;" maxlength="19"></div>
+        <div class="fr2">
+          <div class="fg"><label>Expiry</label><input type="text" placeholder="MM / YY"></div>
+          <div class="fg"><label>CVV</label><input type="text" placeholder="&bull;&bull;&bull;" maxlength="4"></div>
+        </div>
+        <div class="fg"><label>Name on Card</label><input type="text" placeholder="Alexandra Williams"></div>
+        <div style="display:flex;align-items:center;gap:.65rem;padding:.75rem;background:rgba(43,74,62,.07);border:1px solid rgba(43,74,62,.18);margin-top:.5rem">
+          <span style="color:var(--forest)">&#128274;</span>
+          <span style="font-size:.6rem;font-weight:300;color:var(--muted)">256-bit SSL encrypted. Your payment information is fully secure.</span>
+        </div>
+      </div>
+    </div>
+    <div class="modal-ft"><button class="btn-bk" id="backBtn" onclick="prevStep()" style="visibility:hidden">&larr; Back</button><button class="bg-d" id="nextBtn" onclick="nextStep()">Continue &rarr;</button></div>
+  </div>
+</div>
+
+<!-- â•â•â• HOME â•â•â• -->
+<div class="page active" id="page-home">
+<section class="hero">
+  <div class="hero-bg" style="background:linear-gradient(rgba(26,18,8,.62),rgba(26,18,8,.62)),url(https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=1920&q=85&fit=crop) center/cover no-repeat;position:absolute;inset:0"></div><div class="hero-geo"></div><div class="hero-orb"></div>
+  <div class="hc">
+    <span class="h-tag">Welcome to</span>
+    <h1 class="h-h1">Where Luxury<br>Becomes a <em>Memory</em></h1>
+    <p class="h-sub">Aurum Grand &mdash; A World Apart</p>
+    <div class="h-ctas"><button class="bg" onclick="openModal()">Reserve Your Stay</button><button class="bo" onclick="go('rooms')">Explore Rooms</button></div>
+  </div>
+  <div class="scroll-h"><span>Discover</span><div class="sc-line"></div></div>
+</section>
+
+<div class="bbar">
+  <div class="bbf" onclick="openModal()"><span class="bbl">Check In</span><span class="bbv">Select Date</span></div>
+  <div class="bbf" onclick="openModal()"><span class="bbl">Check Out</span><span class="bbv">Select Date</span></div>
+  <div class="bbf" onclick="openModal()"><span class="bbl">Guests</span><span class="bbv">2 Adults</span></div>
+  <div class="bbf" onclick="openModal()"><span class="bbl">Room Type</span><span class="bbv">Any Room</span></div>
+  <button class="bbbtn" onclick="openModal()">Check Availability</button>
+</div>
+
+<div class="fi" style="background:var(--white);padding:5.5rem 3rem">
+  <div style="max-width:660px;margin:0 auto;text-align:center">
+    <span class="st">Our Philosophy</span><div class="gr"></div>
+    <p style="font-family:var(--serif);font-size:clamp(1.25rem,2.6vw,1.9rem);font-weight:300;font-style:italic;color:var(--esp);line-height:1.62;margin:1.4rem 0">"Luxury is not a privilege &mdash; it is a feeling. At Aurum Grand, every detail is composed to make you feel extraordinary."</p>
+    <p class="ss">Nestled between sky and garden, Aurum Grand has for over two decades been the destination of discerning travelers who seek the rare harmony of impeccable service, breathtaking beauty, and genuine warmth.</p>
+  </div>
+</div>
+
+<section style="background:var(--esp);padding:5rem 3rem">
+  <span class="st">Our Accommodations</span>
+  <h2 class="sh" style="color:var(--cream)">Rooms &amp; Suites</h2><div class="gr"></div>
+  <p class="ss" style="color:rgba(245,240,232,.42)">Each space is an intimate world unto itself &mdash; designed to elevate the senses and restore the soul.</p>
+  <div class="rg fu">
+    <div class="rc" onclick="go('rooms')"><div class="rc-bg"></div><div class="rc-pat"></div><div class="rc-ov"></div><div class="rc-ct"><span class="rc-tag">Deluxe Room</span><div class="rc-name">Garden View Suite</div><div class="rc-price">From <strong>$420</strong> / night</div></div><div class="rc-hov"><div class="rc-vbtn">View Room</div></div></div>
+    <div class="rc" onclick="go('rooms')"><div class="rc-bg"></div><div class="rc-pat"></div><div class="rc-ov"></div><div class="rc-ct"><span class="rc-tag">Junior Suite</span><div class="rc-name">Forest Canopy Suite</div><div class="rc-price">From <strong>$680</strong> / night</div></div><div class="rc-hov"><div class="rc-vbtn">View Room</div></div></div>
+    <div class="rc" onclick="go('rooms')"><div class="rc-bg"></div><div class="rc-pat"></div><div class="rc-ov"></div><div class="rc-ct"><span class="rc-tag">Presidential Suite</span><div class="rc-name">The Aurum Penthouse</div><div class="rc-price">From <strong>$2,400</strong> / night</div></div><div class="rc-hov"><div class="rc-vbtn">View Room</div></div></div>
+  </div>
+  <div style="text-align:center;margin-top:2.5rem"><button class="bo" onclick="go('rooms')">View All Rooms &amp; Suites</button></div>
+</section>
+
+<div class="astrip">
+  <div class="as-inner">
+    <div class="ai"><div class="ai-ico"><svg viewBox="0 0 24 24"><path d="M3 15c0-3.3 2.7-6 6-6h6c3.3 0 6 2.7 6 6v1H3v-1z"/><path d="M12 9V5m-3 4V6m6 3V6"/></svg></div><span class="ai-lbl">Infinity Pool</span></div>
+    <div class="ai"><div class="ai-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a6 6 0 0 1 12 0v2"/></svg></div><span class="ai-lbl">Spa &amp; Wellness</span></div>
+    <div class="ai"><div class="ai-ico"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div><span class="ai-lbl">Fine Dining</span></div>
+    <div class="ai"><div class="ai-ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 10h18M8 4V2m8 2V2"/></svg></div><span class="ai-lbl">Event Spaces</span></div>
+    <div class="ai"><div class="ai-ico"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><span class="ai-lbl">Concierge</span></div>
+  </div>
+</div>
+
+<div class="dt">
+  <div class="dt-vis" style="background:linear-gradient(rgba(26,18,8,.45),rgba(26,18,8,.45)),url(https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80&fit=crop) center/cover no-repeat"><div class="dt-pat"></div>
+    <svg width="90" height="170" viewBox="0 0 90 170" fill="none" stroke="rgba(201,168,76,.28)" stroke-width="1.2">
+      <line x1="22" y1="12" x2="22" y2="80"/><line x1="22" y1="80" x2="32" y2="115"/><line x1="32" y1="115" x2="32" y2="158"/>
+      <line x1="13" y1="12" x2="13" y2="50"/><line x1="22" y1="12" x2="22" y2="50"/><line x1="31" y1="12" x2="31" y2="50"/>
+      <line x1="56" y1="12" x2="56" y2="158"/>
+      <path d="M46 12 Q38 42 48 58 Q58 42 68 12" fill="rgba(201,168,76,.06)"/>
+    </svg>
+  </div>
+  <div class="dt-text">
+    <span class="st">Culinary Arts</span>
+    <h2 class="sh" style="color:var(--cream)">A Journey<br>Through Flavor</h2><div class="gr"></div>
+    <p class="ss">Three distinct restaurants, one shared obsession &mdash; creating moments at the table that linger long after the last course.</p>
+    <div style="margin-top:1.8rem"><button class="bg" onclick="go('dining')">Explore Dining</button></div>
+  </div>
+</div>
+
+<section style="background:var(--cream-d);padding:5.5rem 3rem">
+  <span class="st">Guest Voices</span><h2 class="sh">What Our Guests Say</h2><div class="gr"></div>
+  <div class="tg fu">
+    <div class="tc"><div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="tq">"Aurum Grand is not merely a hotel &mdash; it is a state of being. Every moment felt composed, every detail considered. We will return."</p>
+      <div class="ta"><div class="tav" style="background:linear-gradient(135deg,#2d1f0e,#3d2a15);font-size:.9rem">AW</div><div><div class="tn">Alexandra W.</div><div class="tor">London, UK</div></div></div></div>
+    <div class="tc"><div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="tq">"The finest service I have experienced in decades of travel. The staff remembered our preferences before we could articulate them ourselves."</p>
+      <div class="ta"><div class="tav" style="background:linear-gradient(135deg,#1a2d1e,#243b2a);font-size:.9rem">RM</div><div><div class="tn">Rajiv M.</div><div class="tor">Mumbai, India</div></div></div></div>
+    <div class="tc"><div class="stars"><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div><div class="star"></div></div>
+      <p class="tq">"MIRO's tasting menu alone would justify the journey. The Penthouse suite made us never want to leave. Truly extraordinary."</p>
+      <div class="ta"><div class="tav" style="background:linear-gradient(135deg,#1a1a2e,#252538);font-size:.9rem">SL</div><div><div class="tn">Sophie L.</div><div class="tor">Paris, France</div></div></div></div>
+  </div>
+</section>
+
+<section style="background:var(--forest);padding:4rem 3rem;text-align:center">
+  <span class="st" style="color:var(--gold)">The Aurum Circle</span>
+  <h2 class="sh" style="color:var(--cream)">Join Our Loyalty Program</h2><div class="gr"></div>
+  <p class="ss" style="color:rgba(245,240,232,.48)">Earn points on every stay, unlock exclusive benefits, and enjoy privileges reserved for our most valued members.</p>
+  <div style="margin-top:1.8rem;display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+    <button class="bg" onclick="go('loyalty')">Join Free</button>
+    <button class="bo" onclick="go('loyalty')">Learn More</button>
+  </div>
+</section>
+
+
+
+
+<!-- GIFT CARDS -->
+<div class="gift-section fu">
+  <div class="gift-pat"></div>
+  <div style="position:relative;z-index:1">
+    <span class="st" style="color:var(--gold)">Give the Extraordinary</span>
+    <h2 class="sh" style="color:var(--cream)">Aurum Gift Cards</h2>
+    <div class="gr"></div>
+    <p class="ss" style="color:rgba(245,240,232,.48)">The most thoughtful gift imaginable &mdash; a stay, a dinner, a spa day, or the freedom to choose. Available in any amount.</p>
+    <div class="gift-card-visual" style="background:linear-gradient(135deg,rgba(26,18,8,.9),rgba(45,31,14,.85)),url(https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=900&q=80&fit=crop) center/cover no-repeat">
+      <div class="gc-pat"></div>
+      <div class="gc-top">
+        <div class="gc-logo">Aurum</div>
+        <div class="gc-chip"></div>
+      </div>
+      <div class="gc-bottom">
+        <div class="gc-amount" id="gcAmount">$500</div>
+        <span class="gc-label">Gift Experience Card</span>
+      </div>
+    </div>
+    <div class="gift-options">
+      <div class="gift-opt" onclick="setGiftAmt(this,'$250')">$250</div>
+      <div class="gift-opt sel" onclick="setGiftAmt(this,'$500')">$500</div>
+      <div class="gift-opt" onclick="setGiftAmt(this,'$1,000')">$1,000</div>
+      <div class="gift-opt" onclick="setGiftAmt(this,'$2,500')">$2,500</div>
+      <div class="gift-opt" onclick="setGiftAmt(this,'Custom')">Custom</div>
+    </div>
+    <button class="bg" onclick="notify('Gift Card','Your Aurum Grand Gift Card order is being processed. Delivered digitally or by post.')">Purchase Gift Card</button>
+  </div>
+</div>
+
+<!-- SUSTAINABILITY -->
+<div class="sustain fu">
+  <div class="sustain-grid">
+    <div class="sustain-text">
+      <span class="st" style="text-align:left;display:block">Our Commitment</span>
+      <h2 class="sh" style="text-align:left">Luxury with<br>Responsibility</h2>
+      <div class="gr" style="margin:1rem 0"></div>
+      <p class="ss" style="text-align:left;margin:0;max-width:none">We believe the finest luxury hotels are those that leave the world more beautiful than they found it. Our sustainability programme is built into every decision we make.</p>
+      <div class="sustain-pillars">
+        <div class="sp-item"><div class="sp-num">01</div><div class="sp-body"><div class="sp-title">Carbon Neutral by 2027</div><div class="sp-desc">Solar energy covers 60% of our current needs. We are on track to be fully carbon neutral within 24 months.</div></div></div>
+        <div class="sp-item"><div class="sp-num">02</div><div class="sp-body"><div class="sp-title">Zero Single-Use Plastic</div><div class="sp-desc">All guest amenities, packaging, and operations are 100% free from single-use plastics since 2022.</div></div></div>
+        <div class="sp-item"><div class="sp-num">03</div><div class="sp-body"><div class="sp-title">Farm to Table</div><div class="sp-desc">85% of TERRA and MIRO ingredients are sourced from within 50 miles of the hotel, supporting local farmers.</div></div></div>
+        <div class="sp-item"><div class="sp-num">04</div><div class="sp-body"><div class="sp-title">Community Investment</div><div class="sp-desc">1% of all revenue is reinvested directly into local community education and arts programmes every year.</div></div></div>
+      </div>
+    </div>
+    <div class="sustain-stats">
+      <div class="ss-card"><span class="ss-num">60%</span><span class="ss-label">Solar Energy</span></div>
+      <div class="ss-card"><span class="ss-num">0</span><span class="ss-label">Single-Use Plastics</span></div>
+      <div class="ss-card"><span class="ss-num">85%</span><span class="ss-label">Local Sourcing</span></div>
+      <div class="ss-card"><span class="ss-num">2027</span><span class="ss-label">Carbon Neutral Target</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- INSTAGRAM STRIP -->
+<div class="insta-strip">
+  <div class="insta-header">
+    <div>
+      <div class="insta-handle">@AurumGrandHotel</div>
+      <div class="insta-sub">Follow our story &mdash; 128K followers</div>
+    </div>
+    <button class="bo" onclick="notify('Instagram','Follow us @AurumGrandHotel for daily luxury inspiration')">Follow Us</button>
+  </div>
+  <div class="insta-grid">
+    <div class="insta-item" onclick="openLightbox(0)">
+      <div class="insta-item-bg"></div><div class="insta-item-pat"></div>
+      <div class="insta-item-ov"><div class="insta-heart">&#9825;</div><div class="insta-count">2.4K</div></div>
+    </div>
+    <div class="insta-item" onclick="openLightbox(1)">
+      <div class="insta-item-bg"></div><div class="insta-item-pat"></div>
+      <div class="insta-item-ov"><div class="insta-heart">&#9825;</div><div class="insta-count">3.1K</div></div>
+    </div>
+    <div class="insta-item" onclick="openLightbox(2)">
+      <div class="insta-item-bg"></div><div class="insta-item-pat"></div>
+      <div class="insta-item-ov"><div class="insta-heart">&#9825;</div><div class="insta-count">1.8K</div></div>
+    </div>
+    <div class="insta-item" onclick="openLightbox(3)">
+      <div class="insta-item-bg"></div><div class="insta-item-pat"></div>
+      <div class="insta-item-ov"><div class="insta-heart">&#9825;</div><div class="insta-count">4.2K</div></div>
+    </div>
+    <div class="insta-item" onclick="openLightbox(4)">
+      <div class="insta-item-bg"></div><div class="insta-item-pat"></div>
+      <div class="insta-item-ov"><div class="insta-heart">&#9825;</div><div class="insta-count">2.9K</div></div>
+    </div>
+    <div class="insta-item" onclick="openLightbox(5)">
+      <div class="insta-item-bg"></div><div class="insta-item-pat"></div>
+      <div class="insta-item-ov"><div class="insta-heart">&#9825;</div><div class="insta-count">1.6K</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- AWARDS BAND -->
+<div class="awards-band">
+  <div class="awards-inner">
+    <div class="award-item"><div class="award-badge">&#9733;</div><div class="award-name">World's Best Hotels 2024</div></div>
+    <div class="award-item"><div class="award-badge">5&#9670;</div><div class="award-name">Forbes Five Star</div></div>
+    <div class="award-item"><div class="award-badge">AA</div><div class="award-name">AA Five Rosette Dining</div></div>
+    <div class="award-item"><div class="award-badge">&#9670;</div><div class="award-name">CondÃ© Nast Gold List</div></div>
+    <div class="award-item"><div class="award-badge">TA</div><div class="award-name">TripAdvisor Travellers Choice</div></div>
+    <div class="award-item"><div class="award-badge">LH</div><div class="award-name">Leading Hotels of the World</div></div>
+  </div>
+</div>
+
+
+<!-- PRESS BAND -->
+<div class="press-band">
+  <div class="press-inner">
+    <div class="press-label">As Featured In</div>
+    <div class="press-logos">
+      <div class="press-logo">Cond&eacute; Nast Traveller</div>
+      <div class="press-logo">The New York Times</div>
+      <div class="press-logo">Wallpaper*</div>
+      <div class="press-logo">Financial Times</div>
+      <div class="press-logo">Vogue Living</div>
+      <div class="press-logo">Travel + Leisure</div>
+    </div>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="newsletter-section">
+  <div class="nl-pattern"></div>
+  <div class="nl-inner">
+    <span class="st" style="color:var(--gold)">Stay Connected</span>
+    <h2 class="sh" style="color:var(--cream)">Be First to Know</h2>
+    <div class="gr"></div>
+    <p class="ss" style="color:rgba(245,240,232,.45)">Subscribe for exclusive offers, seasonal packages, and curated stories from Aurum Grand â€” delivered with care, never with noise.</p>
+    <div class="nl-form">
+      <input class="nl-input" type="email" id="nl-email" placeholder="Your email address">
+      <button class="nl-btn" onclick="subscribeNL()">Subscribe</button>
+    </div>
+    <div class="nl-note">We respect your privacy. Unsubscribe at any time.</div>
+  </div>
+</div>
+
+<footer><div class="ft">
+  <div class="fb"><div class="logo" style="cursor:default">Aurum<small>Grand Hotel &amp; Resorts</small></div>
+    <p>A sanctuary of timeless luxury. Where every stay becomes a chapter of your finest memories.</p>
+    <div class="soc"><div class="sb2">in</div><div class="sb2">tw</div><div class="sb2">fb</div></div></div>
+  <div class="fc"><h4>Explore</h4><a onclick="go('rooms')">Rooms &amp; Suites</a><a onclick="go('dining')">Dining</a><a onclick="go('amenities')">Amenities</a><a onclick="go('offers')">Special Offers</a><a onclick="go('gallery')">Gallery</a></div>
+  <div class="fc"><h4>Hotel</h4><a onclick="go('about')">About Us</a><a onclick="go('weddings')">Weddings</a><a onclick="go('loyalty')">Loyalty</a><a onclick="notify('Press','press@aurumgrand.com')">Press</a></div>
+  <div class="fc"><h4>Contact</h4><a onclick="go('contact')">Reservations</a><a>+1 800 AURUM GR</a><a>stay@aurumgrand.com</a><a onclick="go('contact')">Directions</a></div>
+</div><div class="fb-bot"><span class="fb-cp">&copy; 2025 Aurum Grand Hotel &amp; Resorts. All rights reserved.</span></div></footer>
+</div>
+
+<!-- â•â•â• ABOUT â•â•â• -->
+<div class="page" id="page-about">
+<div style="padding-top:72px"></div>
+<div class="ph ph-d" style="height:58vh;background:linear-gradient(rgba(26,18,8,.65),rgba(26,18,8,.65)),url(https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1600&q=85&fit=crop) center/cover no-repeat"><div class="ph-grid"></div><div><p>Est. 2001</p><h1>A Legacy of<br><em>Extraordinary</em></h1></div></div>
+<section style="background:var(--white)">
+  <div style="text-align:center;margin-bottom:3.8rem"><span class="st">Our Story</span><h2 class="sh">Two Decades of Excellence</h2><div class="gr"></div></div>
+  <div class="tl-wrap fu">
+    <div class="tl-r"><span class="tl-yr">2001</span><p class="tl-tx">Aurum Grand opens its doors with 45 rooms, a single restaurant, and a singular vision: to create the world&#39;s most personal luxury experience.</p></div>
+    <div class="tl-c"><div class="tl-dot"></div><div class="tl-line"></div></div><div></div>
+    <div></div><div class="tl-c"><div class="tl-dot"></div><div class="tl-line"></div></div>
+    <div class="tl-r"><span class="tl-yr">2008</span><p class="tl-tx">The East Wing expansion adds 75 suites and MIRO restaurant. First Five-Star recognition from World Hotel Awards.</p></div>
+    <div class="tl-r"><span class="tl-yr">2015</span><p class="tl-tx">The Aurum Spa &amp; Wellness Center opens as the finest urban retreat in the region. The Penthouse collection launches.</p></div>
+    <div class="tl-c"><div class="tl-dot"></div><div class="tl-line"></div></div><div></div>
+    <div></div><div class="tl-c"><div class="tl-dot"></div></div>
+    <div class="tl-r"><span class="tl-yr">2024</span><p class="tl-tx">Celebrating 23 years. 120 rooms, 3 restaurants, a complete wellness sanctuary, and over one million unforgettable stays.</p></div>
+  </div>
+</section>
+<section style="background:var(--cream)">
+  <span class="st">What We Stand For</span><h2 class="sh">Our Core Values</h2><div class="gr"></div>
+  <div class="vg fu">
+    <div class="vc"><div class="vi"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg></div>
+      <h3 style="font-family:var(--serif);font-size:1.12rem;font-weight:400;margin-bottom:.65rem">Timeless Hospitality</h3>
+      <p style="font-size:.7rem;font-weight:300;line-height:1.85;color:var(--muted)">We believe the art of true hospitality never goes out of fashion. Every gesture is rooted in genuine care and lifelong dedication to service.</p></div>
+    <div class="vc"><div class="vi"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div>
+      <h3 style="font-family:var(--serif);font-size:1.12rem;font-weight:400;margin-bottom:.65rem">Curated Excellence</h3>
+      <p style="font-size:.7rem;font-weight:300;line-height:1.85;color:var(--muted)">Nothing at Aurum Grand happens by accident. Every element &mdash; from thread count to welcome temperature &mdash; is deliberate.</p></div>
+    <div class="vc"><div class="vi"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+      <h3 style="font-family:var(--serif);font-size:1.12rem;font-weight:400;margin-bottom:.65rem">Mindful Luxury</h3>
+      <p style="font-size:.7rem;font-weight:300;line-height:1.85;color:var(--muted)">True luxury considers its footprint. We balance opulence with responsibility for a future worth inhabiting.</p></div>
+  </div>
+</section>
+<div class="sb fu"><div class="si"><span class="sn">120</span><span class="slb">Luxury Rooms &amp; Suites</span></div><div class="si"><span class="sn">1M+</span><span class="slb">Guests Served</span></div><div class="si"><span class="sn">3</span><span class="slb">Award-Winning Restaurants</span></div><div class="si"><span class="sn">23</span><span class="slb">Years of Excellence</span></div></div>
+<footer><div class="ft"><div class="fb"><div class="logo" style="cursor:default">Aurum<small>Grand</small></div></div><div class="fc"><h4>Quick Links</h4><a onclick="go('home')">Home</a><a onclick="go('rooms')">Rooms</a><a onclick="go('dining')">Dining</a><a onclick="go('contact')">Contact</a></div><div class="fc"><h4>Hotel</h4><a onclick="go('weddings')">Weddings</a><a onclick="go('loyalty')">Loyalty</a></div><div class="fc"><h4>Contact</h4><a>+1 800 AURUM GR</a><a>stay@aurumgrand.com</a></div></div><div class="fb-bot"><span class="fb-cp">&copy; 2025 Aurum Grand.</span></div></footer>
+</div>
+
+<!-- â•â•â• ROOMS â•â•â• -->
+<div class="page" id="page-rooms">
+<div style="padding-top:72px"></div>
+<div class="ph ph-d" style="background:linear-gradient(rgba(26,18,8,.55),rgba(26,18,8,.55)),url(https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&q=80&fit=crop) center/cover no-repeat"><div class="ph-grid"></div><div><p>Our Accommodations</p><h1>Rooms &amp;<br><em>Suites</em></h1></div></div>
+<section style="background:var(--white)">
+  <div class="rl">
+    <div class="rr fu"><div class="rv"><div class="rv-pat"></div><div class="rv-num">01</div></div>
+      <div class="ri"><span class="rc-tag">Deluxe Room</span><div class="ri-nm">Garden View Suite</div><p class="ri-de">A serene retreat opening to manicured gardens. The interplay of natural light and handcrafted furnishings creates a space both grand and intimately personal.</p>
+        <div class="rspecs"><div class="rs"><div class="rsd"></div>45 sq m</div><div class="rs"><div class="rsd"></div>King Bed</div><div class="rs"><div class="rsd"></div>Garden View</div><div class="rs"><div class="rsd"></div>Marble Bath</div><div class="rs"><div class="rsd"></div>Max 2 Guests</div><div class="rs"><div class="rsd"></div>Private Balcony</div></div>
+        <div class="rpr"><span class="rfr">From</span><span class="rp">$420</span><span class="rni">/ night</span></div>
+        <div class="rbtns"><button class="bg" onclick="openModal()">Book Now</button><button class="bo-d" onclick="notify('Gallery','Viewing Garden View Suite gallery')">View Gallery</button></div>
+      </div></div>
+    <div class="rr rev fu">
+      <div class="ri"><span class="rc-tag">Junior Suite</span><div class="ri-nm">Forest Canopy Suite</div><p class="ri-de">Elevated among the treetops, this suite offers a rare sense of sanctuary. Floor-to-ceiling windows frame a living canvas that changes with every hour.</p>
+        <div class="rspecs"><div class="rs"><div class="rsd"></div>72 sq m</div><div class="rs"><div class="rsd"></div>King + Daybed</div><div class="rs"><div class="rsd"></div>Forest View</div><div class="rs"><div class="rsd"></div>Rainfall Shower</div><div class="rs"><div class="rsd"></div>Max 3 Guests</div><div class="rs"><div class="rsd"></div>Living Room</div></div>
+        <div class="rpr"><span class="rfr">From</span><span class="rp">$680</span><span class="rni">/ night</span></div>
+        <div class="rbtns"><button class="bg" onclick="openModal()">Book Now</button><button class="bo-d" onclick="notify('Gallery','Viewing Forest Canopy gallery')">View Gallery</button></div>
+      </div><div class="rv"><div class="rv-pat"></div><div class="rv-num">02</div></div></div>
+    <div class="rr fu"><div class="rv"><div class="rv-pat"></div><div class="rv-num">03</div></div>
+      <div class="ri"><span class="rc-tag">Grand Suite</span><div class="ri-nm">The Aurum Grand Suite</div><p class="ri-de">140 square meters where art, architecture, and hospitality converge. The definitive Aurum experience &mdash; expansive, considered, and utterly luxurious.</p>
+        <div class="rspecs"><div class="rs"><div class="rsd"></div>140 sq m</div><div class="rs"><div class="rsd"></div>King + Twin</div><div class="rs"><div class="rsd"></div>Panoramic View</div><div class="rs"><div class="rsd"></div>Butler Service</div><div class="rs"><div class="rsd"></div>Max 4 Guests</div><div class="rs"><div class="rsd"></div>Private Terrace</div></div>
+        <div class="rpr"><span class="rfr">From</span><span class="rp">$1,200</span><span class="rni">/ night</span></div>
+        <div class="rbtns"><button class="bg" onclick="openModal()">Book Now</button><button class="bo-d" onclick="notify('Gallery','Viewing Grand Suite gallery')">View Gallery</button></div>
+      </div></div>
+    <div class="rr rev fu">
+      <div class="ri"><span class="rc-tag">Presidential Suite</span><div class="ri-nm">The Aurum Penthouse</div><p class="ri-de">The entire top floor. A private residence in the sky with a dedicated team, private dining, private pool, and views that reshape how you see the world.</p>
+        <div class="rspecs"><div class="rs"><div class="rsd"></div>380 sq m</div><div class="rs"><div class="rsd"></div>3 King Bedrooms</div><div class="rs"><div class="rsd"></div>360&deg; City View</div><div class="rs"><div class="rsd"></div>Private Pool</div><div class="rs"><div class="rsd"></div>Max 6 Guests</div><div class="rs"><div class="rsd"></div>Dedicated Butler</div></div>
+        <div class="rpr"><span class="rfr">From</span><span class="rp">$2,400</span><span class="rni">/ night</span></div>
+        <div class="rbtns"><button class="bg" onclick="openModal()">Enquire Now</button><button class="bo-d" onclick="notify('Gallery','Viewing Penthouse gallery')">View Gallery</button></div>
+      </div><div class="rv"><div class="rv-pat"></div><div class="rv-num">04</div></div></div>
+  </div>
+</section>
+
+<!-- ROOM COMPARISON TABLE -->
+<div class="room-compare fu">
+  <span class="st">Compare</span>
+  <h2 class="sh">Find Your Perfect Room</h2>
+  <div class="gr"></div>
+  <div class="rc-table-wrap">
+    <table class="rc-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Deluxe Room</th>
+          <th class="rc-popular">Junior Suite</th>
+          <th>Grand Suite</th>
+          <th>Presidential</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Size</td><td>45 sq m</td><td class="rc-popular">72 sq m</td><td>140 sq m</td><td>380 sq m</td></tr>
+        <tr><td>Max Guests</td><td>2</td><td class="rc-popular">3</td><td>4</td><td>6</td></tr>
+        <tr><td>Bed Type</td><td>King</td><td class="rc-popular">King + Daybed</td><td>King + Twin</td><td>3 Kings</td></tr>
+        <tr><td>View</td><td>Garden</td><td class="rc-popular">Forest</td><td>Panoramic</td><td>360&deg; City</td></tr>
+        <tr><td>Balcony / Terrace</td><td><span class="rc-check">âœ“</span></td><td class="rc-popular"><span class="rc-check">âœ“</span></td><td><span class="rc-check">âœ“ Terrace</span></td><td><span class="rc-check">âœ“ Private</span></td></tr>
+        <tr><td>Living Room</td><td><span class="rc-cross">â€”</span></td><td class="rc-popular"><span class="rc-check">âœ“</span></td><td><span class="rc-check">âœ“</span></td><td><span class="rc-check">âœ“ x2</span></td></tr>
+        <tr><td>Butler Service</td><td><span class="rc-cross">â€”</span></td><td class="rc-popular"><span class="rc-cross">â€”</span></td><td><span class="rc-check">âœ“</span></td><td><span class="rc-check">âœ“ Dedicated</span></td></tr>
+        <tr><td>Private Pool</td><td><span class="rc-cross">â€”</span></td><td class="rc-popular"><span class="rc-cross">â€”</span></td><td><span class="rc-cross">â€”</span></td><td><span class="rc-check">âœ“ Rooftop</span></td></tr>
+        <tr><td>Breakfast Included</td><td><span class="rc-cross">â€”</span></td><td class="rc-popular"><span class="rc-cross">Add-on</span></td><td><span class="rc-check">âœ“ Daily</span></td><td><span class="rc-check">âœ“ 24hr Dining</span></td></tr>
+        <tr><td>Airport Transfer</td><td><span class="rc-cross">â€”</span></td><td class="rc-popular"><span class="rc-cross">â€”</span></td><td><span class="rc-cross">â€”</span></td><td><span class="rc-check">âœ“ Complimentary</span></td></tr>
+        <tr>
+          <td>Price per night</td>
+          <td><span class="rc-price-cell">$420</span></td>
+          <td class="rc-popular"><span class="rc-price-cell">$680</span></td>
+          <td><span class="rc-price-cell">$1,200</span></td>
+          <td><span class="rc-price-cell">$2,400</span></td>
+        </tr>
+        <tr class="rc-cta">
+          <td></td>
+          <td><button class="bg-d" onclick="openRoomModal(0)" style="font-size:.55rem;padding:.55rem 1rem">View Room</button></td>
+          <td class="rc-popular"><button class="bg" onclick="openRoomModal(1)" style="font-size:.55rem;padding:.55rem 1rem">View Room</button></td>
+          <td><button class="bg-d" onclick="openRoomModal(2)" style="font-size:.55rem;padding:.55rem 1rem">View Room</button></td>
+          <td><button class="bg-d" onclick="openRoomModal(3)" style="font-size:.55rem;padding:.55rem 1rem">View Room</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<footer><div class="ft"><div class="fb"><div class="logo" style="cursor:default">Aurum<small>Grand</small></div></div><div class="fc"><h4>Quick Links</h4><a onclick="go('home')">Home</a><a onclick="go('dining')">Dining</a><a onclick="go('offers')">Special Offers</a></div><div class="fc"><h4>Hotel</h4><a onclick="go('about')">About</a><a onclick="go('loyalty')">Loyalty</a></div><div class="fc"><h4>Contact</h4><a>+1 800 AURUM GR</a><a>stay@aurumgrand.com</a></div></div><div class="fb-bot"><span class="fb-cp">&copy; 2025 Aurum Grand.</span></div></footer>
+</div>
+
+<!-- â•â•â• AMENITIES â•â•â• -->
+<div class="page" id="page-amenities">
+<div style="padding-top:72px"></div>
+<div class="ph ph-f" style="background:linear-gradient(rgba(26,18,8,.5),rgba(26,18,8,.5)),url(https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80&fit=crop) center/cover no-repeat"><div class="ph-grid"></div><div><p>Facilities &amp; Experiences</p><h1>Every Indulgence,<br><em>Imagined</em></h1></div></div>
+<div class="af fu"><div class="afv afv1"><div class="af-pat"></div><div class="af-lbl">Pool</div></div>
+  <div class="af-tx"><span class="st">Aquatic Paradise</span><h2 class="sh">Infinity Pool &amp; Terrace</h2><div class="gr"></div><p class="ss">Our rooftop infinity pool dissolves the boundary between water and horizon. Private cabanas, attentive poolside service, open year-round.</p>
+    <div class="af-feats"><div class="af-fi"><div class="af-fd"></div>Rooftop heated infinity pool</div><div class="af-fi"><div class="af-fd"></div>12 private cabanas with butler call</div><div class="af-fi"><div class="af-fd"></div>Poolside cocktail &amp; dining service</div><div class="af-fi"><div class="af-fd"></div>Open daily 7am &ndash; 10pm</div></div>
+  </div>
+</div>
+<div class="af rev fu"><div class="af-tx"><span class="st">Restoration</span><h2 class="sh">Spa &amp; Wellness</h2><div class="gr"></div><p class="ss">3,000 sq m of dedicated wellness space staffed by master therapists drawing on ancient traditions and contemporary science.</p>
+  <div class="af-feats"><div class="af-fi"><div class="af-fd"></div>12 private treatment suites</div><div class="af-fi"><div class="af-fd"></div>Hammam, sauna &amp; ice fountain</div><div class="af-fi"><div class="af-fd"></div>Couples&#39; ritual journeys</div><div class="af-fi"><div class="af-fd"></div>Bespoke wellness programs</div></div>
+  <div style="margin-top:1.2rem"><button class="bg-d" onclick="notify('Spa Booking','Our wellness team will contact you to personalize your experience.')">Book a Treatment</button></div>
+</div><div class="afv afv2"><div class="af-pat"></div><div class="af-lbl">Spa</div></div></div>
+<div class="af fu"><div class="afv afv3"><div class="af-pat"></div><div class="af-lbl">Fitness</div></div>
+  <div class="af-tx"><span class="st">Vitality</span><h2 class="sh">Fitness Center</h2><div class="gr"></div><p class="ss">State-of-the-art Technogym equipment, dedicated yoga &amp; pilates studio, expert personal trainers. Open 24 hours.</p>
+    <div class="af-feats"><div class="af-fi"><div class="af-fd"></div>Latest Technogym equipment</div><div class="af-fi"><div class="af-fd"></div>Yoga &amp; pilates studio</div><div class="af-fi"><div class="af-fd"></div>Personal training on request</div><div class="af-fi"><div class="af-fd"></div>Open 24 hours</div></div>
+  </div>
+</div>
+<div class="af rev fu"><div class="af-tx"><span class="st">Occasions</span><h2 class="sh">Event Spaces</h2><div class="gr"></div><p class="ss">From intimate dinners to grand celebrations for 300 guests. Three distinct venues, each designed with the same precision as our guest rooms.</p>
+  <div class="af-feats"><div class="af-fi"><div class="af-fd"></div>Grand Ballroom &mdash; seats 300</div><div class="af-fi"><div class="af-fd"></div>Garden Terrace &mdash; capacity 120</div><div class="af-fi"><div class="af-fd"></div>Private Salon &mdash; up to 40 guests</div><div class="af-fi"><div class="af-fd"></div>Dedicated event planning team</div></div>
+  <div style="margin-top:1.2rem"><button class="bg-d" onclick="notify('Events','Our Events Director will contact you within 24 hours.')">Plan an Event</button></div>
+</div><div class="afv afv4"><div class="af-pat"></div><div class="af-lbl">Events</div></div></div>
+
+<!-- SPA PACKAGES -->
+<div class="spa-pkgs fu">
+  <span class="st">Curated Rituals</span>
+  <h2 class="sh">Spa Packages</h2>
+  <div class="gr"></div>
+  <p class="ss">Immersive wellness experiences designed to restore, revive, and renew â€” each one a journey in itself.</p>
+  <div class="spa-pkg-grid">
+    <div class="spa-pkg">
+      <div class="spa-pkg-vis"><div class="spa-pkg-vis-pat"></div><div class="spa-pkg-vis-label">Restore</div></div>
+      <div class="spa-pkg-body">
+        <span class="spa-pkg-dur">90 Minutes</span>
+        <div class="spa-pkg-name" style="font-family:var(--serif)">The Aurum Ritual</div>
+        <p class="spa-pkg-desc">Our signature journey â€” a full-body ceremony that begins with a warm stone fusion and ends with a bespoke facial tailored to your skin.</p>
+        <div class="spa-pkg-price">$280</div>
+        <div class="spa-pkg-includes">
+          <div class="spa-inc">Warm stone back massage</div>
+          <div class="spa-inc">Bespoke facial treatment</div>
+          <div class="spa-inc">Scalp and hand ritual</div>
+          <div class="spa-inc">Herbal tea ceremony</div>
+        </div>
+        <button class="bg-d" style="width:100%" onclick="notify('Spa Booking','Aurum Ritual booked. Our therapist will confirm your appointment time.')">Book Now</button>
+      </div>
+    </div>
+    <div class="spa-pkg">
+      <div class="spa-pkg-vis"><div class="spa-pkg-vis-pat"></div><div class="spa-pkg-vis-label">Together</div></div>
+      <div class="spa-pkg-body">
+        <span class="spa-pkg-dur">120 Minutes &mdash; For Two</span>
+        <div class="spa-pkg-name" style="font-family:var(--serif)">Couples Sanctuary</div>
+        <p class="spa-pkg-desc">A private suite experience for two â€” side by side, surrounded by candlelight, warm oils, and complete silence from the world outside.</p>
+        <div class="spa-pkg-price">$520</div>
+        <div class="spa-pkg-includes">
+          <div class="spa-inc">Private couples suite</div>
+          <div class="spa-inc">Synchronised massage</div>
+          <div class="spa-inc">Champagne and canap&eacute;s</div>
+          <div class="spa-inc">Rose petal bath draw</div>
+        </div>
+        <button class="bg-d" style="width:100%" onclick="notify('Spa Booking','Couples Sanctuary booked. A truly unforgettable experience awaits.')">Book Now</button>
+      </div>
+    </div>
+    <div class="spa-pkg">
+      <div class="spa-pkg-vis"><div class="spa-pkg-vis-pat"></div><div class="spa-pkg-vis-label">Renew</div></div>
+      <div class="spa-pkg-body">
+        <span class="spa-pkg-dur">Half Day &mdash; 4 Hours</span>
+        <div class="spa-pkg-name" style="font-family:var(--serif)">Full Immersion Day</div>
+        <p class="spa-pkg-desc">A complete half-day of transformation â€” beginning in the hammam, moving through the ice fountain, and concluding with our master deep-tissue treatment.</p>
+        <div class="spa-pkg-price">$680</div>
+        <div class="spa-pkg-includes">
+          <div class="spa-inc">Hammam experience</div>
+          <div class="spa-inc">Ice fountain &amp; sauna</div>
+          <div class="spa-inc">90-min deep tissue massage</div>
+          <div class="spa-inc">Lunch at TERRA included</div>
+        </div>
+        <button class="bg-d" style="width:100%" onclick="notify('Spa Booking','Full Immersion Day booked. Please arrive 15 minutes early.')">Book Now</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer><div class="ft"><div class="fb"><div class="logo" style="cursor:default">Aurum<small>Grand</small></div></div><div class="fc"><h4>Quick Links</h4><a onclick="go('home')">Home</a><a onclick="go('rooms')">Rooms</a><a onclick="go('dining')">Dining</a></div><div class="fc"><h4>Amenities</h4><a>Infinity Pool</a><a>Spa &amp; Wellness</a><a>Fitness Center</a><a>Event Spaces</a></div><div class="fc"><h4>Contact</h4><a>+1 800 AURUM GR</a><a>stay@aurumgrand.com</a></div></div><div class="fb-bot"><span class="fb-cp">&copy; 2025 Aurum Grand.</span></div></footer>
+</div>
+
+<!-- â•â•â• DINING â•â•â• -->
+<div class="page" id="page-dining">
+<div style="padding-top:72px"></div>
+<div class="ph" style="background:linear-gradient(rgba(26,18,8,.6),rgba(26,18,8,.6)),url(https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80&fit=crop) center/cover no-repeat"><div class="ph-grid"></div><div><p>Culinary Experiences</p><h1>A Journey<br><em>Through Flavor</em></h1></div></div>
+<div class="rf fu"><div class="rfv rfv1"><div class="af-pat"></div><div class="rf-nb">Miro</div></div>
+  <div class="rf-tx"><span class="rf-tag">Fine Dining &middot; Award-Winning</span><div class="rf-nm">MIRO</div><div class="rf-cu">Contemporary European &middot; Tasting Menu</div>
+    <p class="rf-de">Led by Executive Chef Armand Delacroix, MIRO is a meditation on European culinary tradition reinterpreted through a modern lens. Each of the 12 courses tells a story.</p>
+    <div class="rf-meta"><div class="rf-mi"><span>Hours</span><strong>Dinner: 7pm &ndash; 11pm</strong></div><div class="rf-mi"><span>Dress Code</span><strong>Smart Elegant</strong></div><div class="rf-mi"><span>Capacity</span><strong>48 Covers</strong></div></div>
+    <div style="display:flex;gap:.65rem;flex-wrap:wrap"><button class="bg-d" onclick="notify('MIRO Reservation','Table reserved. Confirmation within 2 hours.')">Reserve a Table</button><button class="bo-d" onclick="notify('Menu','Viewing MIRO tasting menu')">View Menu</button></div>
+  </div>
+</div>
+<div class="rf rev fu" style="background:var(--cream-d)"><div class="rf-tx" style="background:var(--cream-d)">
+  <span class="rf-tag">Garden Dining &middot; All Day</span><div class="rf-nm">TERRA</div><div class="rf-cu">Mediterranean Garden Cuisine</div>
+  <p class="rf-de">Bathed in natural light and surrounded by living walls, TERRA celebrates the Mediterranean table &mdash; fresh, generous, and deeply connected to the seasons.</p>
+  <div class="rf-meta"><div class="rf-mi"><span>Hours</span><strong>7am &ndash; 10pm Daily</strong></div><div class="rf-mi"><span>Setting</span><strong>Indoor / Terrace</strong></div><div class="rf-mi"><span>Capacity</span><strong>110 Covers</strong></div></div>
+  <div style="display:flex;gap:.65rem;flex-wrap:wrap"><button class="bg-d" onclick="notify('TERRA','Table reserved!')">Reserve a Table</button><button class="bo-d" onclick="notify('Menu','Viewing TERRA seasonal menu')">View Menu</button></div>
+</div><div class="rfv rfv2"><div class="af-pat"></div><div class="rf-nb">Terra</div></div></div>
+<div class="rf fu"><div class="rfv rfv3"><div class="af-pat"></div><div class="rf-nb">Noir</div></div>
+  <div class="rf-tx"><span class="rf-tag">Rooftop Bar &middot; Cocktail Lounge</span><div class="rf-nm">NOIR</div><div class="rf-cu">Craft Cocktails &middot; Small Plates &middot; Live Music</div>
+    <p class="rf-de">NOIR is a cocktail bar conceived as a conversation &mdash; between the city and the sky, between rare spirits and talented mixologists who turn evenings into memories.</p>
+    <div class="rf-meta"><div class="rf-mi"><span>Hours</span><strong>5pm &ndash; 2am Daily</strong></div><div class="rf-mi"><span>Live Music</span><strong>Fri &amp; Sat</strong></div><div class="rf-mi"><span>Dress Code</span><strong>Smart Casual</strong></div></div>
+    <div style="display:flex;gap:.65rem;flex-wrap:wrap"><button class="bg-d" onclick="notify('NOIR','Rooftop table confirmed!')">Reserve a Table</button><button class="bo-d" onclick="notify('Menu','Viewing NOIR cocktail menu')">Cocktail Menu</button></div>
+  </div>
+</div>
+
+<!-- CHEF SPOTLIGHT -->
+<div class="chef-spot fu">
+  <div class="chef-inner">
+    <div class="chef-photo">
+      <div class="chef-circle" style="background:url(https://images.unsplash.com/photo-1577219491135-ce391730fb2c?w=400&q=80&fit=crop&crop=face) center/cover no-repeat"><div class="chef-circle-pat"></div></div>
+      <div class="chef-ring"></div>
+      <div class="chef-award">Michelin Starred</div>
+    </div>
+    <div class="chef-text">
+      <span class="chef-title">Executive Chef</span>
+      <div class="chef-name" style="font-family:var(--serif)">Armand Delacroix</div>
+      <div class="chef-role">Head of Culinary &mdash; Aurum Grand</div>
+      <p class="chef-quote">"Every dish is a conversation between the ingredient and the season. My role is simply to introduce them properly."</p>
+      <p class="chef-bio">Chef Armand Delacroix trained under three Michelin-starred mentors across Paris, Tokyo, and New York before joining Aurum Grand in 2018. Under his direction, MIRO has earned two Michelin stars and been named among the world's 50 best restaurants. His philosophy centers on restraint, precision, and an uncompromising respect for the ingredient.</p>
+      <div style="margin-top:1.5rem;display:flex;gap:.8rem;flex-wrap:wrap">
+        <button class="bg-d" onclick="notify('MIRO Reservation','Table reserved. Chef Armand looks forward to welcoming you.')">Reserve at MIRO</button>
+        <button class="bo-d" onclick="notify('Chef Story','Read the full story of Chef Armand on our Journal page')">Read His Story</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRIVATE DINING -->
+<div class="private-dining fu">
+  <div class="pd-vis" style="background:linear-gradient(rgba(26,18,8,.4),rgba(26,18,8,.4)),url(https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80&fit=crop) center/cover no-repeat"><div class="pd-pat"></div><div class="pd-script" style="opacity:.7">Private</div></div>
+  <div class="pd-text">
+    <span class="st">Exclusive Experiences</span>
+    <h2 class="sh">Private Dining</h2>
+    <div class="gr"></div>
+    <p class="ss">An entirely personal culinary experience. Reserve our private dining rooms for occasions that demand something beyond extraordinary.</p>
+    <div class="pd-features">
+      <div class="pd-feat"><div class="pd-feat-dot"></div>Exclusive private dining rooms from 6 to 30 guests</div>
+      <div class="pd-feat"><div class="pd-feat-dot"></div>Bespoke menus crafted personally by Chef Armand</div>
+      <div class="pd-feat"><div class="pd-feat-dot"></div>Curated wine pairings from our 4,000-bottle cellar</div>
+      <div class="pd-feat"><div class="pd-feat-dot"></div>Full AV setup available for corporate events</div>
+      <div class="pd-feat"><div class="pd-feat-dot"></div>Available for birthdays, proposals, and celebrations</div>
+    </div>
+    <div style="margin-top:1.8rem;display:flex;gap:.8rem;flex-wrap:wrap">
+      <button class="bg" onclick="notify('Private Dining','Our Private Dining Coordinator will contact you within 24 hours.')">Enquire Now</button>
+      <button class="bo" onclick="notify('Menu','Viewing private dining menu options')">View Menus</button>
+    </div>
+  </div>
+</div>
+
+<!-- DINING RESERVATION FORM -->
+<div class="dining-form-section fu">
+  <div class="dining-form-inner">
+    <h3 style="font-family:var(--serif)">Make a Dining Reservation</h3>
+    <p>Complete the form below and our dining team will confirm your table within 2 hours.</p>
+    <div class="fr2">
+      <div class="fg2"><label>Full Name</label><input type="text" placeholder="Alexandra Williams"></div>
+      <div class="fg2"><label>Email</label><input type="email" placeholder="you@email.com"></div>
+    </div>
+    <div class="fr2">
+      <div class="fg2"><label>Restaurant</label>
+        <select><option>MIRO &mdash; Fine Dining</option><option>TERRA &mdash; Garden</option><option>NOIR &mdash; Rooftop Bar</option><option>Private Dining Room</option></select>
+      </div>
+      <div class="fg2"><label>Date</label><input type="date"></div>
+    </div>
+    <div class="fr2">
+      <div class="fg2"><label>Time</label>
+        <select><option>7:00 PM</option><option>7:30 PM</option><option>8:00 PM</option><option>8:30 PM</option><option>9:00 PM</option></select>
+      </div>
+      <div class="fg2"><label>Guests</label>
+        <select><option>1 Guest</option><option selected>2 Guests</option><option>3 Guests</option><option>4 Guests</option><option>5-8 Guests</option><option>9+ Guests</option></select>
+      </div>
+    </div>
+    <div class="fg2"><label>Special Occasions / Dietary Requirements</label>
+      <textarea placeholder="Birthday celebration, allergies, dietary preferences, special requests&hellip;"></textarea>
+    </div>
+    <button class="bg-d" style="width:100%;justify-content:center;display:flex" onclick="notify('Dining Reservation','Thank you! Your table request has been received. We will confirm within 2 hours.')">Confirm Reservation</button>
+  </div>
+</div>
+
+<footer><div class="ft"><div class="fb"><div class="logo" style="cursor:default">Aurum<small>Grand</small></div></div><div class="fc"><h4>Restaurants</h4><a>MIRO &mdash; Fine Dining</a><a>TERRA &mdash; Garden</a><a>NOIR &mdash; Rooftop</a></div><div class="fc"><h4>Hotel</h4><a onclick="go('rooms')">Rooms</a><a onclick="go('amenities')">Amenities</a></div><div class="fc"><h4>Reservations</h4><a>dining@aurumgrand.com</a><a>+1 800 AURUM GR</a></div></div><div class="fb-bot"><span class="fb-cp">&copy; 2025 Aurum Grand.</span></div></footer>
+</div>
+
+<!-- â•â•â• SPECIAL OFFERS â•â•â• -->
+<div class="page" id="page-offers">
+<div style="padding-top:72px"></div>
+<div class="ph" style="background:linear-gradient(rgba(26,18,8,.58),rgba(26,18,8,.58)),url(https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80&fit=crop) center/cover no-repeat"><div class="ph-grid"></div><div><p>Exclusive Packages</p><h1>Curated Experiences,<br><em>Exclusive Rates</em></h1></div></div>
+<section style="background:var(--esp);padding:3rem 0 0">
+  <div class="fo">
+    <div class="fo-vis" style="background:linear-gradient(rgba(26,18,8,.35),rgba(26,18,8,.35)),url(https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=900&q=80&fit=crop) center/cover no-repeat"><div class="af-pat"></div><div class="fo-rib">Exclusive</div>
+      <div style="position:relative;z-index:1;text-align:center"><span style="font-family:var(--script);font-size:3.5rem;color:var(--gold);opacity:.5">Summer</span></div>
+    </div>
+    <div class="fo-tx"><span class="fo-tag">Featured Offer &middot; Limited Time</span>
+      <div class="fo-nm">Summer Escape Package</div>
+      <p class="fo-de">Seven nights of indulgence. Daily breakfast for two, one spa treatment per guest, sunset dinner at TERRA, and a complimentary room upgrade.</p>
+      <div class="fo-pr"><span class="fo-orig">$4,200</span><span class="fo-disc">$2,940</span></div>
+      <p style="font-size:.58rem;color:rgba(245,240,232,.38);margin-bottom:.8rem">Save 30% &mdash; Available until June 30</p>
+      <div class="timer">
+        <div class="tu"><span class="tu-n" id="td">12</span><span class="tu-l">Days</span></div>
+        <div class="tu"><span class="tu-n" id="th">08</span><span class="tu-l">Hours</span></div>
+        <div class="tu"><span class="tu-n" id="tm">34</span><span class="tu-l">Mins</span></div>
+        <div class="tu"><span class="tu-n" id="ts">22</span><span class="tu-l">Secs</span></div>
+      </div>
+      <button class="bg" onclick="openModal()">Claim This Offer</button>
+    </div>
+  </div>
+</section>
+<section style="background:var(--cream);padding:3.5rem 3rem">
+  <div style="display:flex;gap:.5rem;flex-wrap:wrap;justify-content:center;margin-bottom:2.2rem">
+    <button class="gf active" onclick="setGF(this)">All</button>
+    <button class="gf" onclick="setGF(this)">Romantic</button>
+    <button class="gf" onclick="setGF(this)">Family</button>
+    <button class="gf" onclick="setGF(this)">Wellness</button>
+    <button class="gf" onclick="setGF(this)">Seasonal</button>
+  </div>
+  <div class="oc-grid fu">
+    <div class="oc" onclick="openModal()"><div class="oc-vis"><div class="oc-pat"></div><div class="oc-badge">Romantic</div><div class="oc-days">6 days left</div></div>
+      <div class="oc-body"><div class="oc-nm">Honeymoon in the Sky</div><p class="oc-de">Penthouse suite, private dining, couples spa ritual, and a bespoke experience crafted entirely around you.</p><div><span class="oc-fr">From </span><span class="oc-pr">$3,800</span></div><button class="bg-d" style="margin-top:.9rem;width:100%">Book Now</button></div>
+    </div>
+    <div class="oc" onclick="openModal()"><div class="oc-vis"><div class="oc-pat"></div><div class="oc-badge">Family</div><div class="oc-days">18 days left</div></div>
+      <div class="oc-body"><div class="oc-nm">Family Grand Adventure</div><p class="oc-de">Grand Suite, children&#39;s club access, family dining, and endless pool days for up to 4 guests.</p><div><span class="oc-fr">From </span><span class="oc-pr">$1,650</span></div><button class="bg-d" style="margin-top:.9rem;width:100%">Book Now</button></div>
+    </div>
+    <div class="oc" onclick="openModal()"><div class="oc-vis"><div class="oc-pat"></div><div class="oc-badge">Wellness</div><div class="oc-days">30 days left</div></div>
+      <div class="oc-body"><div class="oc-nm">Aurum Wellness Retreat</div><p class="oc-de">Three nights, daily spa treatments, detox dining, yoga sessions, and a personalized wellness consultation.</p><div><span class="oc-fr">From </span><span class="oc-pr">$1,890</span></div><button class="bg-d" style="margin-top:.9rem;width:100%">Book Now</button></div>
+    </div>
+  </div>
+</section>
+<footer><div class="ft"><div class="fb"><div class="logo" style="cursor:default">Aurum<small>Grand</small></div></div><div class="fc"><h4>Quick Links</h4><a onclick="go('home')">Home</a><a onclick="go('rooms')">Rooms</a><a onclick="go('dining')">Dining</a></div><div class="fc"><h4>More Offers</h4><a onclick="go('loyalty')">Loyalty Rates</a><a onclick="go('weddings')">Weddings</a></div><div class="fc"><h4>Contact</h4><a>+1 800 AURUM GR</a><a>stay@aurumgrand.com</a></div></div><div class="fb-bot"><span class="fb-cp">&copy; 2025 Aurum Grand.</span></div></footer>
+</div>
+
+<!-- â•â•â• GALLERY â•â•â• -->
+<div class="page" id="page-gallery">
+<div style="padding-top:72px"></div>
+<section style="background:linear-gradient(rgba(26,18,8,.55),rgba(26,18,8,.55)),linear-gradient(rgba(26,18,8,.65),rgba(26,18,8,.65)),url(https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=75&fit=crop) center/cover no-repeat;padding:5rem 3rem 4rem;text-align:center">
+  <span class="st" style="color:var(--gold);text-shadow:0 2px 8px rgba(0,0,0,.5)">Visual Story</span><h2 class="sh" style="color:var(--cream);text-shadow:0 2px 12px rgba(0,0,0,.6)">A Journey Through Aurum Grand</h2><div class="gr"></div>
+</section>
+<div class="gf-wrap">
+  <button class="gf active" onclick="setGF(this)">All</button>
+  <button class="gf" onclick="setGF(this)">Rooms</button>
+  <button class="gf" onclick="setGF(this)">Dining</button>
+  <button class="gf" onclick="setGF(this)">Pool &amp; Spa</button>
+  <button class="gf" onclick="setGF(this)">Exterior</button>
+  <button class="gf" onclick="setGF(this)">Events</button>
+</div>
+<div class="gal-grid">
+  <div class="gi" onclick="openLightbox(0)"><div style="position:relative"><div class="gi-vis" style="height:270px;background:url(https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=600&q=75&fit=crop) center/cover no-repeat,#2d1f0e,#3d2a15)"><div class="oc-pat"></div></div><div class="gi-ov"><div class="gi-ov-icon">&#8853;</div></div></div></div>
+  <div class="gi" onclick="openLightbox(1)"><div style="position:relative"><div class="gi-vis" style="height:195px;background:url(https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=600&q=75&fit=crop) center/cover no-repeat,#1a2d1e,#243b2a)"><div class="oc-pat"></div></div><div class="gi-ov"><div class="gi-ov-icon">&#8853;</div></div></div></div>
+  <div class="gi" onclick="openLightbox(2)"><div style="position:relative"><div class="gi-vis" style="height:330px;background:url(https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=75&fit=crop) center/cover no-repeat,#1a1a2e,#252538)"><div class="oc-pat"></div></div><div class="gi-ov"><div class="gi-ov-icon">&#8853;</div></div></div></div>
+  <div class="gi" onclick="openLightbox(3)"><div style="position:relative"><div class="gi-vis" style="height:215px;background:url(https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=75&fit=crop) center/cover no-repeat,#2d1a0e,#3d2010)"><div class="oc-pat"></div></div><div class="gi-ov"><div class="gi-ov-icon">&#8853;</div></div></div></div>
+  <div class="gi" onclick="openLightbox(4)"><div style="position:relative"><div class="gi-vis" style="height:290px;background:url(https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&q=75&fit=crop) center/cover no-repeat,#1a2d24,#0d1f19)"><div class="oc-pat"></div></div><div class="gi-ov"><div class="gi-ov-icon">&#8853;</div></div></div></div>
+  <div class="gi" onclick="openLightbox(5)"><div style="position:relative"><div class="gi-vis" style="height:175px;background:url(https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=600&q=75&fit=crop) center/cover no-repeat,#2d2420,#1a1208)"><div class="oc-pat"></div></div><div class="gi-ov"><div class="gi-ov-icon">&#8853;</div></div></div></div>
+  <div class="gi" onclick="openLightbox(6)"><div style="position:relative"><div class="gi-vis" style="height:250px;background:url(https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=600&q=75&fit=crop) center/cover no-repeat,#1f2d1a,#2a3b20)"><div class="oc-pat"></div></div><div class="gi-ov"><div class="gi-ov-icon">&#8853;</div></div></div></div>
+  <div class="gi" onclick="openLightbox(7)"><div style="position:relative"><div class="gi-vis" style="height:310px;background:url(https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=600&q=75&fit=crop) center/cover no-repeat,#1a1820,#25222e)"><div class="oc-pat"></div></div><div class="gi-ov"><div class="gi-ov-icon">&#8853;</div></div></div></div>
+  <div class="gi" onclick="openLightbox(8)"><div style="position:relative"><div class="gi-vis" style="height:195px;background:url(https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=75&fit=crop) center/cover no-repeat,#2d1f0e,#1a2d1e)"><div class="oc-pat"></div></div><div class="gi-ov"><div class="gi-ov-icon">&#8853;</div></div></div></div>
+</div>
+<footer><div class="ft"><div class="fb"><div class="logo" style="cursor:default">Aurum<small>Grand</small></div></div><div class="fc"><h4>Quick Links</h4><a onclick="go('home')">Home</a><a onclick="go('rooms')">Rooms</a><a onclick="go('dining')">Dining</a></div><div class="fc"><h4>Hotel</h4><a onclick="go('about')">About</a><a onclick="notify('Press','press@aurumgrand.com')">Press</a></div><div class="fc"><h4>Contact</h4><a>+1 800 AURUM GR</a><a>stay@aurumgrand.com</a></div></div><div class="fb-bot"><span class="fb-cp">&copy; 2025 Aurum Grand.</span></div></footer>
+</div>
+
+<!-- â•â•â• WEDDINGS â•â•â• -->
+<div class="page" id="page-weddings">
+<div style="padding-top:72px"></div>
+<div class="ph" style="height:58vh;background:linear-gradient(rgba(26,18,8,.55),rgba(26,18,8,.55)),url(https://images.unsplash.com/photo-1519741497674-611481863552?w=1600&q=85&fit=crop) center/cover no-repeat"><div class="ph-grid"></div><div><p>Celebrations &amp; Events</p><h1>Your Most<br><em>Memorable Day</em></h1></div></div>
+<section style="background:var(--white)">
+  <span class="st">Why Choose Aurum</span><h2 class="sh">Wed in Extraordinary Style</h2><div class="gr"></div>
+  <p class="ss" style="margin-bottom:2.8rem">From intimate ceremonies to grand celebrations, every Aurum Grand wedding is a masterpiece of detail and emotion.</p>
+  <div class="wed-why fu">
+    <div class="ww"><div class="ww-ico"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><h4 style="font-family:var(--serif);font-size:.98rem;font-weight:400;margin-bottom:.35rem">Exclusive Venues</h4><p style="font-size:.65rem;font-weight:300;color:var(--muted);line-height:1.7">Three distinct spaces for every vision</p></div>
+    <div class="ww"><div class="ww-ico"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg></div><h4 style="font-family:var(--serif);font-size:.98rem;font-weight:400;margin-bottom:.35rem">Bespoke Catering</h4><p style="font-size:.65rem;font-weight:300;color:var(--muted);line-height:1.7">Award-winning chefs craft every menu</p></div>
+    <div class="ww"><div class="ww-ico"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><h4 style="font-family:var(--serif);font-size:.98rem;font-weight:400;margin-bottom:.35rem">Dedicated Planner</h4><p style="font-size:.65rem;font-weight:300;color:var(--muted);line-height:1.7">Your personal event director always available</p></div>
+    <div class="ww"><div class="ww-ico"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/></svg></div><h4 style="font-family:var(--serif);font-size:.98rem;font-weight:400;margin-bottom:.35rem">Luxury Rooms</h4><p style="font-size:.65rem;font-weight:300;color:var(--muted);line-height:1.7">Preferred rates for all wedding guests</p></div>
+  </div>
+</section>
+<section style="background:var(--cream)">
+  <span class="st">Wedding Packages</span><h2 class="sh">Choose Your Package</h2><div class="gr"></div>
+  <div class="wed-tiers fu">
+    <div class="wt"><div class="wt-nm" style="font-family:var(--serif)">Elegant</div><div class="wt-pr">$8,500</div><p class="wt-fr">Up to 50 guests</p>
+      <ul class="wt-list"><li>Garden Terrace venue</li><li>4-course dinner menu</li><li>Floral arrangement</li><li>Dedicated coordinator</li><li>Bridal suite 1 night</li></ul>
+      <button class="bg-d" style="width:100%" onclick="notify('Wedding Enquiry','Our Events Director will contact you within 24 hours.')">Enquire Now</button></div>
+    <div class="wt ft"><div class="wt-nm" style="font-family:var(--serif)">Grand</div><div class="wt-pr">$18,000</div><p class="wt-fr">Up to 150 guests</p>
+      <ul class="wt-list"><li>Grand Ballroom venue</li><li>6-course tasting menu</li><li>Premium floral &amp; d&eacute;cor</li><li>Dedicated coordinator</li><li>Penthouse 2 nights</li><li>Champagne reception</li></ul>
+      <button class="bg" style="width:100%" onclick="notify('Wedding Enquiry','Our Events Director will contact you within 24 hours.')">Enquire Now</button></div>
+    <div class="wt"><div class="wt-nm" style="font-family:var(--serif)">Bespoke</div><div class="wt-pr">Custom</div><p class="wt-fr">Any size &middot; Any vision</p>
+      <ul class="wt-list"><li>Any venue combination</li><li>Fully custom menu</li><li>All d&eacute;cor managed</li><li>Dedicated 2-person team</li><li>Full hotel buyout option</li><li>Unlimited planning</li></ul>
+      <button class="bg-d" style="width:100%" onclick="notify('Bespoke Wedding','Our Director of Events will call you personally.')">Request Consultation</button></div>
+  </div>
+</section>
+<section style="background:linear-gradient(rgba(26,18,8,.75),rgba(26,18,8,.75)),url(https://images.unsplash.com/photo-1519741497674-611481863552?w=1600&q=85&fit=crop) center/cover no-repeat;padding:4.5rem 3rem;text-align:center">
+  <span class="st">A Guest&#39;s Words</span>
+  <p style="font-family:var(--serif);font-size:clamp(1.2rem,2.4vw,1.8rem);font-weight:300;font-style:italic;color:var(--cream);line-height:1.65;max-width:680px;margin:1.3rem auto">"Aurum Grand did not simply host our wedding &mdash; they curated a day that neither of us will ever stop talking about."</p>
+  <p style="font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-top:.9rem">&mdash; James &amp; Clara, Married at Aurum Grand 2024</p>
+</section>
+<footer><div class="ft"><div class="fb"><div class="logo" style="cursor:default">Aurum<small>Grand</small></div></div><div class="fc"><h4>Quick Links</h4><a onclick="go('home')">Home</a><a onclick="go('rooms')">Rooms</a><a onclick="go('contact')">Contact</a></div><div class="fc"><h4>Events</h4><a>Weddings</a><a>Corporate Events</a><a>Private Dining</a></div><div class="fc"><h4>Contact</h4><a>events@aurumgrand.com</a><a>+1 800 AURUM GR</a></div></div><div class="fb-bot"><span class="fb-cp">&copy; 2025 Aurum Grand.</span></div></footer>
+</div>
+
+<!-- â•â•â• LOYALTY â•â•â• -->
+<div class="page" id="page-loyalty">
+<div style="padding-top:72px"></div>
+<div class="ph ph-d" style="height:55vh;background:linear-gradient(rgba(26,18,8,.62),rgba(26,18,8,.62)),url(https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=1600&q=85&fit=crop) center/cover no-repeat"><div class="ph-grid"></div><div><p>The Aurum Circle</p><h1>Loyalty<br><em>Rewarded</em></h1></div></div>
+<section style="background:var(--esp)">
+  <span class="st">Your Journey</span><h2 class="sh" style="color:var(--cream)">How It Works</h2><div class="gr"></div>
+  <div class="hiw fu">
+    <div class="hw"><div class="hw-n">1</div><div class="hw-t" style="font-family:var(--serif);color:var(--cream)">Join Free</div><p class="hw-d" style="color:rgba(245,240,232,.45)">Sign up online or at check-in. Instant Silver status, no fees.</p></div>
+    <div class="hw"><div class="hw-n">2</div><div class="hw-t" style="font-family:var(--serif);color:var(--cream)">Stay &amp; Earn</div><p class="hw-d" style="color:rgba(245,240,232,.45)">Earn 10 points per $1 spent on rooms, dining, and spa.</p></div>
+    <div class="hw"><div class="hw-n">3</div><div class="hw-t" style="font-family:var(--serif);color:var(--cream)">Tier Up</div><p class="hw-d" style="color:rgba(245,240,232,.45)">Gold at 5,000 pts. Platinum at 20,000 for elite privileges.</p></div>
+    <div class="hw"><div class="hw-n">4</div><div class="hw-t" style="font-family:var(--serif);color:var(--cream)">Redeem</div><p class="hw-d" style="color:rgba(245,240,232,.45)">Free nights, spa credits, dining experiences, and more.</p></div>
+  </div>
+</section>
+<section style="background:var(--cream)">
+  <span class="st">Membership Tiers</span><h2 class="sh">Choose Your Status</h2><div class="gr"></div>
+  <div class="ly-tiers fu">
+    <div class="lt"><div class="lt-badge lt-s">S</div><div class="lt-nm" style="font-family:var(--serif)">Silver</div><p class="lt-req">Entry level &middot; 0&ndash;4,999 pts</p>
+      <div class="lt-pts" style="font-family:var(--serif)">10 pts<div class="lt-pl">per $1 spent</div></div>
+      <ul class="lt-perks"><li>Priority reservations</li><li>Welcome amenity on arrival</li><li>Member-only room rates</li><li>Birthday reward</li></ul>
+      <button class="bg-d" style="width:100%" onclick="notify('Loyalty Sign-up','Welcome! Your Silver membership is being activated.')">Join Now &mdash; Free</button></div>
+    <div class="lt gold-t"><div class="lt-badge lt-g">G</div><div class="lt-nm" style="font-family:var(--serif)">Gold</div><p class="lt-req">5,000&ndash;19,999 pts per year</p>
+      <div class="lt-pts" style="font-family:var(--serif)">15 pts<div class="lt-pl">per $1 spent</div></div>
+      <ul class="lt-perks"><li>All Silver benefits</li><li>Room upgrades on availability</li><li>Early check-in / late check-out</li><li>Breakfast included 2&times; per year</li><li>$100 annual dining credit</li></ul>
+      <button class="bg" style="width:100%">Earn Your Way Up</button></div>
+    <div class="lt"><div class="lt-badge lt-p">P</div><div class="lt-nm" style="font-family:var(--serif)">Platinum</div><p class="lt-req">20,000+ pts per year</p>
+      <div class="lt-pts" style="font-family:var(--serif)">20 pts<div class="lt-pl">per $1 spent</div></div>
+      <ul class="lt-perks"><li>All Gold benefits</li><li>Guaranteed suite upgrades</li><li>Personal Butler every stay</li><li>Complimentary airport transfer</li><li>Exclusive Platinum events</li><li>Dedicated Platinum line</li></ul>
+      <button class="bg-d" style="width:100%">Our Rarest Status</button></div>
+  </div>
+</section>
+<footer><div class="ft"><div class="fb"><div class="logo" style="cursor:default">Aurum<small>Grand</small></div></div><div class="fc"><h4>Quick Links</h4><a onclick="go('home')">Home</a><a onclick="go('rooms')">Rooms</a><a onclick="go('offers')">Special Offers</a></div><div class="fc"><h4>Tiers</h4><a>Silver</a><a>Gold</a><a>Platinum</a></div><div class="fc"><h4>Contact</h4><a>loyalty@aurumgrand.com</a><a>+1 800 AURUM GR</a></div></div><div class="fb-bot"><span class="fb-cp">&copy; 2025 Aurum Grand.</span></div></footer>
+</div>
+
+<!-- â•â•â• CONTACT â•â•â• -->
+<div class="page" id="page-contact">
+<div style="padding-top:72px"></div>
+<div class="ph ph-d" style="background:linear-gradient(rgba(26,18,8,.62),rgba(26,18,8,.62)),url(https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1600&q=85&fit=crop) center/cover no-repeat"><div class="ph-grid"></div><div><p>We Are Here For You</p><h1>Reserve<br><em>Your Stay</em></h1></div></div>
+<div style="background:var(--white)">
+  <div class="cw">
+    <div class="ci fi">
+      <h2>Get in Touch</h2>
+      <p style="font-size:.72rem;font-weight:300;line-height:1.9;color:var(--muted);margin-bottom:1.7rem">Our reservations and concierge teams are available 24 hours a day. We would be honoured to assist you in planning an extraordinary stay.</p>
+      <div class="cd"><div class="cd-ico"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><span class="cd-l">Address</span><span class="cd-v">1 Aurum Boulevard, Grand Quarter<br>New York, NY 10001, USA</span></div></div>
+      <div class="cd"><div class="cd-ico"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2.18h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.16 6.16l1.09-.91a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div><span class="cd-l">Reservations</span><span class="cd-v">+1 800 AURUM GR<br>+1 212 555 0180</span></div></div>
+      <div class="cd"><div class="cd-ico"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><span class="cd-l">Email</span><span class="cd-v">stay@aurumgrand.com<br>concierge@aurumgrand.com</span></div></div>
+      <div class="cd"><div class="cd-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><span class="cd-l">Hours</span><span class="cd-v">Concierge: 24 / 7<br>Reservations: 7am &ndash; 11pm</span></div></div>
+    </div>
+    <div class="cf fu">
+      <h3>Make a Reservation</h3>
+      <div class="fr2"><div class="fg2"><label>First Name</label><input type="text" placeholder="Alexandra"></div><div class="fg2"><label>Last Name</label><input type="text" placeholder="Williams"></div></div>
+      <div class="fg2"><label>Email Address</label><input type="email" placeholder="you@email.com"></div>
+      <div class="fr2"><div class="fg2"><label>Check In</label><input type="date"></div><div class="fg2"><label>Check Out</label><input type="date"></div></div>
+      <div class="fr2"><div class="fg2"><label>Room Type</label><select><option>Deluxe Room</option><option>Junior Suite</option><option>Grand Suite</option><option>Presidential Suite</option></select></div><div class="fg2"><label>Guests</label><select><option>1 Guest</option><option selected>2 Guests</option><option>3 Guests</option><option>4+ Guests</option></select></div></div>
+      <div class="fg2"><label>Special Requests</label><textarea placeholder="Dietary requirements, celebrations, accessibility needs&hellip;"></textarea></div>
+      <button class="bg-d" style="width:100%;justify-content:center;display:flex" onclick="notify('Reservation Received','Our team will contact you within 2 hours to confirm your booking at Aurum Grand.')">Confirm Reservation</button>
+    </div>
+  </div>
+</div>
+<div class="map-s">
+  <div class="map-v" style="background:linear-gradient(rgba(26,18,8,.5),rgba(26,18,8,.5)),url(https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=900&q=80&fit=crop) center/cover no-repeat"><div class="map-grid"></div><div style="position:relative"><div class="map-ring"></div><div class="map-dot"></div></div></div>
+  <div class="map-info"><h3>Find Aurum Grand</h3><p>Located in the city&#39;s most prestigious district, minutes from cultural institutions, boutiques, and business centers.</p><p style="font-size:.66rem;color:rgba(245,240,232,.32)">1 Aurum Boulevard, Grand Quarter, NY 10001</p><button class="bg" style="margin-top:1rem" onclick="notify('Directions','Opening directions to Aurum Grand')">Get Directions</button></div>
+</div>
+<div class="faq-s">
+  <div class="faq-in">
+    <span class="st" style="text-align:left;display:block">Questions</span>
+    <h2 class="sh" style="text-align:left;margin-bottom:1.6rem">Frequently Asked</h2>
+    <div class="faq-item"><div class="faq-q" onclick="tfaq(this)">What is your cancellation policy?<div class="faq-arr">+</div></div><div class="faq-a">Reservations may be cancelled without charge up to 48 hours prior to arrival. Within 48 hours, a one-night charge applies. Presidential Suite requires 7 days&#39; notice.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tfaq(this)">Is early check-in available?<div class="faq-arr">+</div></div><div class="faq-a">Standard check-in is from 3pm. Early check-in from 12pm may be arranged subject to availability at a supplementary charge. Luggage storage is always complimentary.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tfaq(this)">Are pets welcome?<div class="faq-arr">+</div></div><div class="faq-a">We warmly welcome well-behaved dogs up to 10kg in select rooms. Our concierge can arrange gourmet pet meals, walking services, and premium amenities.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tfaq(this)">Do you offer airport transfers?<div class="faq-arr">+</div></div><div class="faq-a">Complimentary luxury transfers are included with Grand Suite and Presidential Suite bookings. Private transfers for other rooms can be arranged at preferential rates.</div></div>
+    <div class="faq-item"><div class="faq-q" onclick="tfaq(this)">What is the dress code at MIRO?<div class="faq-arr">+</div></div><div class="faq-a">MIRO maintains a smart-elegant dress code. No sportswear or beachwear please. TERRA and NOIR welcome smart-casual attire. Our concierge is happy to advise.</div></div>
+  </div>
+</div>
+<footer><div class="ft"><div class="fb"><div class="logo" style="cursor:default">Aurum<small>Grand</small></div></div><div class="fc"><h4>Quick Links</h4><a onclick="go('home')">Home</a><a onclick="go('rooms')">Rooms</a><a onclick="go('dining')">Dining</a><a onclick="go('amenities')">Amenities</a></div><div class="fc"><h4>Hotel</h4><a onclick="go('about')">About</a><a onclick="go('offers')">Offers</a><a onclick="go('loyalty')">Loyalty</a></div><div class="fc"><h4>Contact</h4><a>+1 800 AURUM GR</a><a>stay@aurumgrand.com</a><a>1 Aurum Boulevard, NY</a></div></div><div class="fb-bot"><span class="fb-cp">&copy; 2025 Aurum Grand Hotel &amp; Resorts. All rights reserved.</span></div></footer>
+</div>
+
+
+<!-- â•â•â• 404 PAGE â•â•â• -->
+<div class="page" id="page-404">
+  <div style="padding-top:72px"></div>
+  <div class="page-404-inner" style="position:relative">
+    <div class="err-num">404</div>
+    <div class="err-content">
+      <div class="err-icon">?</div>
+      <span class="st">Oops</span>
+      <h1 style="font-family:var(--serif);font-size:clamp(2rem,5vw,3.5rem);font-weight:300;font-style:italic;margin-bottom:1rem">This page has<br>checked out.</h1>
+      <p style="font-size:.75rem;font-weight:300;color:var(--muted);max-width:420px;margin:0 auto 2rem;line-height:1.85">The room you are looking for may have moved. Allow us to guide you back to somewhere more comfortable.</p>
+      <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+        <button class="bg-d" onclick="go('home')">Back to Homepage</button>
+        <button class="bo-d" onclick="go('rooms')">Browse Rooms</button>
+        <button class="bo-d" onclick="go('contact')">Contact Us</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   AURUM GRAND â€” FINAL JS
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+var allPages=['home','about','rooms','amenities','dining','offers','gallery','weddings','loyalty','contact','404'];
+var cur='home', bStep=1, addons=0;
+
+/* â”€â”€ LOADER â”€â”€ */
+window.addEventListener('load', function(){
+  setTimeout(function(){
+    var ld=document.getElementById('loader');
+    if(ld){ ld.classList.add('hide'); setTimeout(function(){ ld.style.display='none'; },700); }
+    setTimeout(showCookie, 2200);
+  }, 1700);
+});
+
+/* â”€â”€ NAVIGATION â”€â”€ */
+function go(p){
+  var tr=document.getElementById('pageTrans');
+  if(tr) tr.classList.add('in');
+  setTimeout(function(){
+    for(var i=0;i<allPages.length;i++){
+      var el=document.getElementById('page-'+allPages[i]);
+      if(el) el.classList.remove('active');
+      var nv=document.getElementById('nv-'+allPages[i]);
+      if(nv) nv.classList.remove('al');
+    }
+    var pg=document.getElementById('page-'+p);
+    if(pg) pg.classList.add('active');
+    var nv=document.getElementById('nv-'+p);
+    if(nv) nv.classList.add('al');
+    cur=p;
+    window.scrollTo({top:0,behavior:'instant'});
+    updateMobBar(p);
+    if(tr){ tr.classList.remove('in'); tr.classList.add('out'); setTimeout(function(){ tr.classList.remove('out'); },350); }
+    updateNav();
+    setTimeout(initAnims,120);
+  },280);
+}
+
+function updateMobBar(p){
+  var items=['home','rooms','dining','contact'];
+  for(var i=0;i<items.length;i++){
+    var el=document.getElementById('mb-'+items[i]);
+    if(el) el.classList.toggle('active', items[i]===p);
+  }
+}
+
+/* â”€â”€ NAV / SCROLL â”€â”€ */
+function updateNav(){
+  var nav=document.getElementById('nav');
+  if(cur==='home' && window.scrollY<80){ nav.className='t'; }
+  else{ nav.className='s'; }
+}
+window.addEventListener('scroll', function(){
+  updateNav();
+  var prog=document.getElementById('scroll-progress');
+  if(prog){ var dh=document.documentElement.scrollHeight-window.innerHeight; prog.style.width=(dh>0?(window.scrollY/dh)*100:0)+'%'; }
+  var bt=document.getElementById('back-top');
+  if(bt) bt.classList.toggle('show', window.scrollY>400);
+});
+
+/* â”€â”€ MOBILE MENU â”€â”€ */
+function toggleMM(){ document.getElementById('mm').classList.toggle('open'); }
+
+/* â”€â”€ TOAST â”€â”€ */
+var _tt;
+function notify(title,msg){
+  clearTimeout(_tt);
+  document.getElementById('toast-t').textContent=title;
+  document.getElementById('toast-m').textContent=msg;
+  var t=document.getElementById('toast');
+  t.classList.add('show');
+  _tt=setTimeout(function(){ t.classList.remove('show'); },4200);
+}
+
+/* â”€â”€ NEWSLETTER â”€â”€ */
+function subscribeNL(){
+  var em=document.getElementById('nl-email');
+  if(em && em.value && em.value.indexOf('@')>0){
+    notify('Subscribed!','Welcome. You will receive our next exclusive offer shortly.');
+    em.value='';
+  } else { notify('Invalid Email','Please enter a valid email address.'); }
+}
+
+/* â”€â”€ COOKIE â”€â”€ */
+function showCookie(){
+  if(!sessionStorage.getItem('ck')){
+    var cb=document.getElementById('cookie-banner');
+    if(cb) cb.classList.add('show');
+  }
+}
+function closeCookie(){
+  sessionStorage.setItem('ck','1');
+  var cb=document.getElementById('cookie-banner');
+  if(cb) cb.classList.remove('show');
+}
+
+/* â”€â”€ CHAT â”€â”€ */
+var chatOpen=false;
+var chatR_map={
+  "book a room":"I would be delighted to help you reserve a room. Rates start from $420 per night. Shall I open the booking form?",
+  "dining reservation":"We have MIRO for fine dining, TERRA for garden cuisine, and NOIR our rooftop bar. Which would you prefer?",
+  "spa & wellness":"Our spa offers treatments from 60 to 180 minutes. I can arrange a session for any day of your stay.",
+  "local tips":"Aurum Grand is minutes from the finest museums and boutiques. Shall I prepare a bespoke local guide?"
+};
+function toggleChat(){
+  chatOpen=!chatOpen;
+  document.getElementById('chatPanel').classList.toggle('open',chatOpen);
+  document.getElementById('chatBadge').style.display=chatOpen?'none':'block';
+}
+function chatR(msg){
+  _addBubble(msg,'usr');
+  document.getElementById('chatChips').style.display='none';
+  setTimeout(function(){
+    var r=chatR_map[msg.toLowerCase()]||'Thank you. A member of our concierge team will attend to your request shortly.';
+    _addBubble(r,'bot');
+  },700);
+}
+function _addBubble(text,type){
+  var b=document.createElement('div');
+  b.className='cb '+type; b.textContent=text;
+  var bd=document.getElementById('chatBody');
+  bd.appendChild(b); bd.scrollTop=9999;
+}
+function sendChat(){
+  var inp=document.getElementById('chatInp');
+  if(!inp||!inp.value.trim()) return;
+  chatR(inp.value); inp.value='';
+}
+
+/* â”€â”€ BOOKING MODAL â”€â”€ */
+function openModal(){
+  document.getElementById('bookModal').classList.add('open');
+  document.body.style.overflow='hidden';
+  bStep=1; addons=0;
+  var fpao=document.getElementById('fp-ao');
+  if(fpao) fpao.textContent='$0';
+  showBStep(1);
+}
+function closeModal(){
+  document.getElementById('bookModal').classList.remove('open');
+  document.body.style.overflow='';
+}
+function showBStep(n){
+  for(var i=1;i<=4;i++){
+    var sp=document.getElementById('sp'+i);
+    if(sp) sp.classList.toggle('active',i===n);
+    var sn=document.getElementById('sn'+i);
+    if(sn){
+      sn.classList.remove('done','active');
+      if(i<n) sn.classList.add('done');
+      if(i===n) sn.classList.add('active');
+      var sl=sn.nextElementSibling;
+      if(sl&&sl.classList.contains('stp-l')) sl.classList.toggle('active',i===n);
+    }
+  }
+  var bb=document.getElementById('backBtn'),nb=document.getElementById('nextBtn');
+  if(bb) bb.style.visibility=n>1?'visible':'hidden';
+  if(nb) nb.textContent=n===4?'Confirm Booking':'Continue';
+}
+function nextStep(){
+  if(bStep<4){ bStep++; showBStep(bStep); }
+  else{
+    closeModal();
+    var ref='AG-'+Math.floor(10000+Math.random()*90000);
+    setTimeout(function(){ notify('Booking Confirmed!','Thank you! Ref: '+ref+'. Confirmation sent to your email.'); },300);
+    bStep=1;
+  }
+}
+function prevStep(){ if(bStep>1){ bStep--; showBStep(bStep); } }
+function togAddon(el,price){
+  el.classList.toggle('sel');
+  if(el.classList.contains('sel')){ addons+=price; } else { addons-=price; }
+  var fpao=document.getElementById('fp-ao');
+  if(fpao) fpao.textContent='$'+addons;
+  _updFinal();
+}
+function updSum(){
+  var rt=document.getElementById('rt'),ci=document.getElementById('ci'),co=document.getElementById('co');
+  if(!rt||!ci||!co||!ci.value||!co.value) return;
+  var base=parseInt(rt.value)||420;
+  var nights=Math.max(1,Math.round((new Date(co.value)-new Date(ci.value))/86400000));
+  var sub=base*nights,tax=Math.round(sub*0.18),tot=sub+tax;
+  var nm=rt.options[rt.selectedIndex].text.split('\u2014')[0].trim();
+  var ids={'os-rm':nm+' x '+nights+' nights','os-p':'$'+sub.toLocaleString(),'os-tx':'$'+tax.toLocaleString(),'os-tot':'$'+tot.toLocaleString(),'fp-rm':nm,'fp-p':'$'+sub.toLocaleString(),'fp-tx':'$'+tax.toLocaleString()};
+  for(var id in ids){ var el=document.getElementById(id); if(el) el.textContent=ids[id]; }
+  _updFinal();
+}
+function _updFinal(){
+  var ci=document.getElementById('ci'),co=document.getElementById('co'),rt=document.getElementById('rt'),fp=document.getElementById('fp-tot');
+  if(!ci||!co||!rt||!fp||!ci.value||!co.value) return;
+  var base=parseInt(rt.value)||420,nights=Math.max(1,Math.round((new Date(co.value)-new Date(ci.value))/86400000));
+  fp.textContent='$'+(base*nights+Math.round(base*nights*0.18)+addons).toLocaleString();
+}
+
+/* â”€â”€ ROOM DETAIL MODAL â”€â”€ */
+var _rooms=[
+  {tag:'Deluxe Room',name:'Garden View Suite',desc:'A serene retreat opening to manicured gardens. The interplay of natural light and handcrafted furnishings creates a space both grand and intimately personal.',price:'$420',num:'01',bg:'linear-gradient(rgba(26,18,8,.35),rgba(26,18,8,.35)),url(https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=900&q=80&fit=crop) center/cover no-repeat',specs:['45 sq m','King Bed','Garden View','Marble Bathroom','Max 2 Guests','Private Balcony']},
+  {tag:'Junior Suite',name:'Forest Canopy Suite',desc:'Elevated among the treetops, this suite offers a rare sense of sanctuary. Floor-to-ceiling windows frame a living canvas that changes with every hour.',price:'$680',num:'02',bg:'linear-gradient(rgba(26,18,8,.35),rgba(26,18,8,.35)),url(https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80&fit=crop) center/cover no-repeat',specs:['72 sq m','King + Daybed','Forest View','Rainfall Shower','Max 3 Guests','Living Room']},
+  {tag:'Grand Suite',name:'The Aurum Grand Suite',desc:'140 square meters where art, architecture, and hospitality converge. The definitive Aurum experience â€” expansive, considered, and utterly luxurious.',price:'$1,200',num:'03',bg:'linear-gradient(rgba(26,18,8,.35),rgba(26,18,8,.35)),url(https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&q=80&fit=crop) center/cover no-repeat',specs:['140 sq m','King + Twin','Panoramic View','Butler Service','Max 4 Guests','Private Terrace']},
+  {tag:'Presidential Suite',name:'The Aurum Penthouse',desc:'The entire top floor â€” a private residence in the sky with dedicated team, private dining, and views that reshape how you see the world.',price:'$2,400',num:'04',bg:'linear-gradient(rgba(26,18,8,.35),rgba(26,18,8,.35)),url(https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=900&q=80&fit=crop) center/cover no-repeat',specs:['380 sq m','3 King Bedrooms','360 City View','Private Pool','Max 6 Guests','Dedicated Butler']}
+];
+function openRoomModal(idx){
+  var r=_rooms[idx];
+  document.getElementById('rm-tag').textContent=r.tag;
+  document.getElementById('rm-name').textContent=r.name;
+  document.getElementById('rm-desc').textContent=r.desc;
+  document.getElementById('rm-price').textContent=r.price;
+  document.getElementById('rm-hero-num').textContent=r.num;
+  document.getElementById('rm-hero-bg').style.background=r.bg;
+  var sp=document.getElementById('rm-specs'); sp.innerHTML='';
+  for(var i=0;i<r.specs.length;i++) sp.innerHTML+='<div class="rm-spec"><div class="rm-spec-dot"></div><span>'+r.specs[i]+'</span></div>';
+  document.getElementById('rm-ci').value='';
+  document.getElementById('rm-co').value='';
+  document.getElementById('rm-total').textContent='\u2014';
+  document.getElementById('room-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeRoomModal(){
+  document.getElementById('room-modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+function calcRoomTotal(){
+  var ci=document.getElementById('rm-ci').value,co=document.getElementById('rm-co').value;
+  var pr=document.getElementById('rm-price').textContent.replace('$','').replace(',','');
+  if(!ci||!co) return;
+  var nights=Math.max(1,Math.round((new Date(co)-new Date(ci))/86400000));
+  document.getElementById('rm-total').textContent='$'+((parseInt(pr)||420)*nights).toLocaleString();
+}
+
+/* â”€â”€ GALLERY LIGHTBOX â”€â”€ */
+var _lbImgs=[{bg:'url(https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?w=900&q=80&fit=crop) center/cover no-repeat',cap:'The Aurum Penthouse â€” Presidential Suite'},
+  {bg:'url(https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=900&q=80&fit=crop) center/cover no-repeat',cap:'Forest Canopy Suite â€” Living Area'},
+  {bg:'url(https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=80&fit=crop) center/cover no-repeat',cap:'Infinity Pool â€” Rooftop Terrace'},
+  {bg:'url(https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80&fit=crop) center/cover no-repeat',cap:'MIRO Restaurant â€” Fine Dining'},
+  {bg:'url(https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=900&q=80&fit=crop) center/cover no-repeat',cap:'Aurum Spa â€” Treatment Suite'},
+  {bg:'url(https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=900&q=80&fit=crop) center/cover no-repeat',cap:'Grand Ballroom â€” Event Space'},
+  {bg:'url(https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=900&q=80&fit=crop) center/cover no-repeat',cap:'TERRA Restaurant â€” Garden Terrace'},
+  {bg:'url(https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=900&q=80&fit=crop) center/cover no-repeat',cap:'NOIR Bar â€” Rooftop at Sunset'},
+  {bg:'url(https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1600&q=85&fit=crop) center/cover no-repeat',cap:'Hotel Exterior â€” Aurum Grand Facade'}];
+var _lbCur=0;
+function openLightbox(idx){
+  _lbCur=idx||0; _renderThumbs(); _updLb();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow='';
+}
+function lbNav(dir){ _lbCur=(_lbCur+dir+_lbImgs.length)%_lbImgs.length; _updLb(); }
+function _updLb(){
+  var img=_lbImgs[_lbCur];
+  document.getElementById('lb-img-bg').style.background=img.bg;
+  document.getElementById('lb-caption').textContent=img.cap;
+  document.getElementById('lb-counter').textContent=(_lbCur+1)+' of '+_lbImgs.length;
+  var ts=document.querySelectorAll('.lb-thumb');
+  for(var i=0;i<ts.length;i++) ts[i].classList.toggle('active',i===_lbCur);
+}
+function _renderThumbs(){
+  var wrap=document.getElementById('lb-thumbs'); wrap.innerHTML='';
+  for(var i=0;i<_lbImgs.length;i++){
+    var t=document.createElement('div');
+    t.className='lb-thumb'+(i===_lbCur?' active':'');
+    t.innerHTML='<div class="lb-thumb-bg" style="'+_lbImgs[i].bg+';opacity:.65;position:absolute;inset:0"></div>';
+    (function(idx){ t.addEventListener('click',function(){ _lbCur=idx; _updLb(); }); })(i);
+    wrap.appendChild(t);
+  }
+}
+document.addEventListener('keydown',function(e){
+  if(!document.getElementById('lightbox').classList.contains('open')) return;
+  if(e.key==='ArrowLeft') lbNav(-1);
+  if(e.key==='ArrowRight') lbNav(1);
+  if(e.key==='Escape') closeLightbox();
+});
+
+/* â”€â”€ FAQ â”€â”€ */
+function tfaq(el){ el.parentElement.classList.toggle('open'); }
+
+/* â”€â”€ FILTERS â”€â”€ */
+function setGF(btn){
+  var p=btn.parentElement, bs=p.querySelectorAll('.gf');
+  for(var i=0;i<bs.length;i++) bs[i].classList.remove('active');
+  btn.classList.add('active');
+  notify('Filter Applied','Showing: '+btn.textContent.trim());
+}
+
+/* â”€â”€ GIFT CARD â”€â”€ */
+function setGiftAmt(btn,amt){
+  var opts=document.querySelectorAll('.gift-opt');
+  for(var i=0;i<opts.length;i++) opts[i].classList.remove('sel');
+  btn.classList.add('sel');
+  var el=document.getElementById('gcAmount');
+  if(el) el.textContent=amt;
+}
+
+/* â”€â”€ COUNTDOWN â”€â”€ */
+function startTimer(){
+  var end=new Date(); end.setDate(end.getDate()+12); end.setHours(8,34,22,0);
+  function tick(){
+    var d=end-new Date(); if(d<=0) return;
+    var days=Math.floor(d/86400000),hrs=Math.floor((d%86400000)/3600000),
+        mins=Math.floor((d%3600000)/60000),secs=Math.floor((d%60000)/1000);
+    var td=document.getElementById('td'),th=document.getElementById('th'),
+        tm=document.getElementById('tm'),ts=document.getElementById('ts');
+    if(td) td.textContent=String(days).padStart(2,'0');
+    if(th) th.textContent=String(hrs).padStart(2,'0');
+    if(tm) tm.textContent=String(mins).padStart(2,'0');
+    if(ts) ts.textContent=String(secs).padStart(2,'0');
+  }
+  tick(); setInterval(tick,1000);
+}
+startTimer();
+
+/* â”€â”€ GLOBAL CLICK â”€â”€ */
+window.addEventListener('click',function(e){
+  if(e.target.id==='bookModal') closeModal();
+  if(e.target.id==='room-modal') closeRoomModal();
+  if(e.target.id==='lightbox') closeLightbox();
+});
+
+/* â”€â”€ SCROLL ANIMS â”€â”€ */
+function initAnims(){
+  var els=document.querySelectorAll('#page-'+cur+' .fu, #page-'+cur+' .fi');
+  var obs=new IntersectionObserver(function(en){
+    en.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('v'); });
+  },{threshold:0.08});
+  els.forEach(function(el){ obs.observe(el); });
+}
+
+/* â”€â”€ INIT â”€â”€ */
+window.addEventListener('DOMContentLoaded',function(){
+  initAnims(); updateNav(); updateMobBar('home');
+  document.querySelectorAll('#page-home .fi').forEach(function(el){ el.classList.add('v'); });
+});
+</script>
+<script src="script.js"></script>
+</body>
+</html>
+
